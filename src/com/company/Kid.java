@@ -9,11 +9,10 @@ public class Kid {
     private Date dateOfBirth;
     private boolean present;
 
-    public Kid() {
+    public Kid(String firstname, String lastname, Date dateOfBirth) {
         setFirstname(firstname);
         setLastname(lastname);
         setDateOfBirth(dateOfBirth);
-        setPresent(present);
     }
 
     public String getFirstname(){

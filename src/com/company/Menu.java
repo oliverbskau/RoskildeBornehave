@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
     Scanner in = new Scanner(System.in);
+    Administration administration = new Administration();
 
     public void menu(){
         System.out.println("Roskilde Frie Børnehave\nVælg menufunktion: \n\n");
@@ -38,7 +39,7 @@ public class Menu {
                     break;
 
                 case 5:
-
+                    administration.administrateEmployee();
                     break;
 
                 case 6:

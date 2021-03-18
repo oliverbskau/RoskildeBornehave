@@ -1,5 +1,6 @@
 package com.company;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +10,7 @@ public class HandleEmployee {
 
     public ArrayList<Employee> employees = new ArrayList<>();
 
-    JDBCWriter jdbcWriter = new JDBCWriter();
-
-    public void seeEmployees(){
+    public void seeEmployees(JDBCWriter jdbcWriter){
 
         System.out.println("Alle medarbejdere ");
         int count = 1;
@@ -20,8 +19,8 @@ public class HandleEmployee {
             System.out.println(count + ". " + employees.get(i).toString());
             count++;
         }
-        jdbcWriter.setConnection();
         ResultSet resultset = jdbcWriter.retrieveDataFromDB("employee");
+
         try {
             while (resultset.next()) {
                 System.out.println(resultset.getString("firstname") +
@@ -36,7 +35,7 @@ public class HandleEmployee {
 
     }
 
-    public void addEmployee(){
+    public void addEmployee(JDBCWriter jdbcWriter){
         Scanner addEmployeeScanner = new Scanner(System.in);
         System.out.println("Fornavn: ");
         String firstname = addEmployeeScanner.nextLine();
@@ -49,12 +48,11 @@ public class HandleEmployee {
 
         employees.add(new Employee(firstname, lastname, email, phonenumber));
 
-        jdbcWriter.setConnection();
 
         String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
 
         try {
-            PreparedStatement insertValuesEmployee = jdbcWriter.connection.prepareStatement(insertInto);
+            PreparedStatement insertValuesEmployee = jdbcWriter.getConnection().prepareStatement(insertInto);
             insertValuesEmployee.setString(1,firstname);
             insertValuesEmployee.setString(2,lastname);
             insertValuesEmployee.setString(3,email);
@@ -67,7 +65,7 @@ public class HandleEmployee {
         }
     }
 
-    public void deleteEmployee(){
+    public void deleteEmployee(JDBCWriter jdbcWriter){
         System.out.println("Skriv tallet foran navnet på den person der skal fjernes: ");
         Scanner deleteEmployeeScanner = new Scanner(System.in);
         int count = 1;

@@ -4,22 +4,19 @@ import java.sql.*;
 
 public class JDBCWriter {
 
-    public Connection connection = null;
+    private Connection connection = null;
     private final static String CONNECTIONSTRING = "jdbc:mysql://127.0.0.1:3306/roskildebornehave?ServerTimezone=UTC";
     private final static String DBUSER = "projectAccount";
     private final static String PASSWORD = "project";
-    private boolean isConnected;
 
     /**
      * sets the connection to the database if possible
      * @return true if connected, false otherwise
      */
 
-    public boolean setConnection() {
-        isConnected = false;
+    public void setConnection() {
         try {
             connection = DriverManager.getConnection(CONNECTIONSTRING,DBUSER,PASSWORD);
-            isConnected = true;
             System.out.println("Connection established...");
 
         } catch (SQLException e) {
@@ -27,7 +24,10 @@ public class JDBCWriter {
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("SQL state: " + e.getSQLState());
         }
-        return isConnected;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     /**
@@ -51,6 +51,10 @@ public class JDBCWriter {
         }
 
         return resultSet;
+    }
+
+    public void printTable(String table) {
+
     }
 
 }
