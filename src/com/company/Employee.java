@@ -6,15 +6,23 @@ public class Employee {
     private String lastname;
     private String email;
     private String phonenumber;
+    private String id;
 
 
     public Employee(){
+        setId(id);
         setFirstname(firstname);
         setLastname(lastname);
         setEmail(email);
         setPhonenumber(phonenumber);
     }
 
+    public String getId(){
+        return id;
+    }
+    public void setId(String id){
+        this.id = id;
+    }
 
     public String getFirstname(){
         return firstname;
@@ -45,7 +53,7 @@ public class Employee {
     }
 
     public String toString(){
-        return "Navn: " + getFirstname() + " " + getLastname() + " | Email: " + getEmail() + " | Telefon: " + getPhonenumber();
+        return "ID: " + getId() + " | Navn: " + getFirstname() + " " + getLastname() + " | Email: " + getEmail() + " | Telefon: " + getPhonenumber();
     }
 
 
