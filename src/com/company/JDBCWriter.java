@@ -38,7 +38,7 @@ public class JDBCWriter {
 
     public ResultSet retrieveDataFromDB(String tableName) {
         ResultSet resultSet = null;
-        String query = "SELECT * FROM " + tableName;
+        String query = "SELECT * FROM " + tableName + ";";
 
         try{
             Statement statement = connection.createStatement();
