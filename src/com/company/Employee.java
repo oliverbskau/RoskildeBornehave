@@ -15,7 +15,6 @@ public class Employee {
     }
 
 
-
     public String getFirstname(){
         return firstname;
     }

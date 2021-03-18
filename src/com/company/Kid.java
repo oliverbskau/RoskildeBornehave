@@ -2,14 +2,14 @@ package com.company;
 
 import java.util.Date;
 
-public class Kids {
+public class Kid {
 
     private String firstname;
     private String lastname;
     private Date dateOfBirth;
     private boolean present;
 
-    public Kids(){
+    public Kid(){
         setFirstname(firstname);
         setLastname(lastname);
         setDateOfBirth(dateOfBirth);
