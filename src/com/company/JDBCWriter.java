@@ -6,7 +6,7 @@ public class JDBCWriter {
 
     public Connection connection = null;
     private final static String CONNECTIONSTRING = "jdbc:mysql://127.0.0.1:3306/roskildebornehave?ServerTimezone=UTC";
-    private final static String DBUSER = "ProjectAccount";
+    private final static String DBUSER = "projectAccount";
     private final static String PASSWORD = "project";
     private boolean isConnected;
 

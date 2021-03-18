@@ -9,7 +9,7 @@ public class Kid {
     private Date dateOfBirth;
     private boolean present;
 
-    public Kid(){
+    public Kid() {
         setFirstname(firstname);
         setLastname(lastname);
         setDateOfBirth(dateOfBirth);

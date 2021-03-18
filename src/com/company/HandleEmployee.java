@@ -1,5 +1,4 @@
 package com.company;
-import com.mysql.cj.protocol.Resultset;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +11,6 @@ public class HandleEmployee {
 
     JDBCWriter jdbcWriter = new JDBCWriter();
 
-
     public void seeEmployees(){
 
         System.out.println("Alle medarbejdere ");
@@ -22,7 +20,7 @@ public class HandleEmployee {
             System.out.println(count + ". " + employees.get(i).toString());
             count++;
         }
-
+        jdbcWriter.setConnection();
         ResultSet resultset = jdbcWriter.retrieveDataFromDB("employee");
         try {
             while (resultset.next()) {
