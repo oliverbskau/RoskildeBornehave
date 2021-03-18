@@ -7,11 +7,13 @@ public class Kids {
     private String firstname;
     private String lastname;
     private Date dateOfBirth;
+    private boolean present;
 
     public Kids(){
         setFirstname(firstname);
         setLastname(lastname);
         setDateOfBirth(dateOfBirth);
+        setPresent(present);
     }
 
     public String getFirstname(){
@@ -35,8 +37,16 @@ public class Kids {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public boolean getPresent(){
+        return present;
+    }
+    public void setPresent(boolean present){
+        this.present = present;
+    }
+
+
     public String toString(){
-        return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth();
+        return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth() + " | Tilstede: " + getPresent();
     }
 
 
