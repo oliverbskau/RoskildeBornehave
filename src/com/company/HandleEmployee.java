@@ -1,7 +1,9 @@
 package com.company;
+import com.mysql.cj.protocol.Resultset;
+
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class HandleEmployee {
@@ -19,6 +21,19 @@ public class HandleEmployee {
         for(int i = 0; i < employees.size(); i++){
             System.out.println(count + ". " + employees.get(i).toString());
             count++;
+        }
+
+        ResultSet resultset = jdbcWriter.retrieveDataFromDB("employee");
+        try {
+            while (resultset.next()) {
+                System.out.println(resultset.getString("firstname") +
+                        resultset.getString("lastname") +
+                        resultset.getString("email") +
+                        resultset.getString("phonenumber") +
+                        resultset.getInt("dutyid"));
+            }
+        } catch (Exception e) {
+            System.out.println("Fejl ved forsøg på at printe dataset.");
         }
 
     }
