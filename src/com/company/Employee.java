@@ -7,12 +7,13 @@ public class Employee {
     private String email;
     private String phonenumber;
 
-    public Employee(){
+    public Employee(String firstname, String lastname, String email, String phonenumber){
         setFirstname(firstname);
         setLastname(lastname);
         setEmail(email);
         setPhonenumber(phonenumber);
     }
+
 
 
 
