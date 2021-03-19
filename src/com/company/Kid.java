@@ -9,6 +9,7 @@ public class Kid {
     private String lastname;
     private Date dateOfBirth;
     private boolean present;
+    private boolean onWaitinglist;
     private ArrayList<Guardian> guardians;
 
     public Kid(String firstname, String lastname, Date dateOfBirth, Guardian guardian1, Guardian guardian2) {
