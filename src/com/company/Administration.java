@@ -1,6 +1,5 @@
 package com.company;
 
-import java.sql.Connection;
 import java.util.Scanner;
 
 public class Administration {
