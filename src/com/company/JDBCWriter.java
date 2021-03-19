@@ -69,7 +69,14 @@ public class JDBCWriter {
         }
     }
 
-    public void deleteEmployeeFromTable(Employee employee) {
+    public void deleteEmployeeFromTable(String firstname, String lastname) {
+        String deleteQuery = "DELETE FROM employees WHERE firstname=? AND lastname=?";
+
+        try{
+            PreparedStatement deleteEmployee = connection.prepareStatement(deleteQuery);
+        } catch(SQLException e) {
+            System.out.println("");
+        }
 
     }
 

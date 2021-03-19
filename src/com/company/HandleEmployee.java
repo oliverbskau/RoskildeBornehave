@@ -26,21 +26,15 @@ public class HandleEmployee {
     }
 
     public void deleteEmployee(JDBCWriter jdbcWriter){
-        System.out.println("Hvilken medarbejder vil du gerne fjerne?");
-
-        /*
-        System.out.println("Skriv tallet foran navnet på den person der skal fjernes: ");
         Scanner deleteEmployeeScanner = new Scanner(System.in);
-        int count = 1;
-        for (int i = 0; i < employees.size(); i++){
-            System.out.println(count + ". " + employees.get(i).toString());
-            count++;
-        }
-        int deleteChoice = deleteEmployeeScanner.nextInt()-1;
+        printEmployees(jdbcWriter);
 
-        employees.remove(deleteChoice);
-
-         */
+        System.out.println("Hvilken medarbejder vil du gerne fjerne?");
+        System.out.println("Skriv fornavn:");
+        String firstname = deleteEmployeeScanner.next();
+        System.out.println("Skriv efternavn:");
+        String lastname = deleteEmployeeScanner.next();
+        jdbcWriter.deleteEmployeeFromTable(firstname,lastname);
 
 
     }
