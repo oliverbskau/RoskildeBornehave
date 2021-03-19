@@ -31,7 +31,6 @@ public class JDBCWriter {
     }
 
     /**
-     *
      * @param tableName the table we retrieve data from
      * @return ResultSet with all data from the table
      */
@@ -51,6 +50,27 @@ public class JDBCWriter {
         }
 
         return resultSet;
+    }
+
+    public void addEmployeeToTable(Employee employee) {
+        String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
+
+        try {
+            PreparedStatement insertValuesEmployee = connection.prepareStatement(insertInto);
+            insertValuesEmployee.setString(1,employee.getFirstname());
+            insertValuesEmployee.setString(2,employee.getLastname());
+            insertValuesEmployee.setString(3,employee.getEmail());
+            insertValuesEmployee.setString(4, employee.getPhonenumber());
+            insertValuesEmployee.executeQuery();
+            System.out.println("\n| Medarbejder tilføjet til database |");
+
+        }catch(SQLException sqlError){
+            System.out.println("Medarbejder tilføjet, men ikke gemt i database");
+        }
+    }
+
+    public void deleteEmployeeFromTable(Employee employee) {
+
     }
 
     public void printTable(String table) {

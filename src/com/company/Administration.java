@@ -25,7 +25,7 @@ public class Administration {
 
         switch (choice) {
             case 1:
-                handleEmployee.seeEmployees(jdbcWriter);
+                handleEmployee.viewEmployeeList(jdbcWriter);
             case 2:
                 handleEmployee.addEmployee(jdbcWriter);
             case 3:
@@ -34,6 +34,10 @@ public class Administration {
     }
 
     public void administrateKids(){
+
+    }
+
+    public void administrateSchedule() {
 
     }
 }
