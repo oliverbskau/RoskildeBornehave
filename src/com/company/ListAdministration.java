@@ -12,11 +12,15 @@ JDBCWriter jdbcWriter = new JDBCWriter();
     public void guardianList() {
 
         jdbcWriter.setConnection();
-        String listGuardians = "SELECT firstname, lastname, phonenumber FROM guardians;";
+        String listGuardians = "select * from guardians\n" +
+                "join (select firstname, lastname from kids) kids\n" +
+                "order by guardianid;";
+
 
         try{
             PreparedStatement guardianStatement = jdbcWriter.getConnection().prepareStatement(listGuardians);
             ResultSet guardianRs = guardianStatement.executeQuery();
+
 
             int count = 1;
             while(guardianRs.next()){
@@ -32,6 +36,7 @@ JDBCWriter jdbcWriter = new JDBCWriter();
     }
 
     public void phoneList () {
+
 
     }
 
