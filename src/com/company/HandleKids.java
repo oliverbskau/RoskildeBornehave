@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class HandleKids {
 
-    JDBCWriter jdbcWriter= new JDBCWriter();
-    Scanner in = new Scanner(System.in);
+    private JDBCWriter jdbcWriter= new JDBCWriter();
+    private     Scanner in = new Scanner(System.in);
 
     public void addKid() {
         System.out.println("Fornavn: ");

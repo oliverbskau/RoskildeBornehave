@@ -7,14 +7,13 @@ import java.sql.Statement;
 
 public class HandleGuardian {
 
-    JDBCWriter jdbcWriter = new JDBCWriter();
+    private JDBCWriter jdbcWriter = new JDBCWriter();
 
     public void guardianList() {
 
        jdbcWriter.setConnection();
 
         String listGuardians = "select * from guardians;";
-
 
         try{
             PreparedStatement guardianStatement = jdbcWriter.getConnection().prepareStatement(listGuardians);

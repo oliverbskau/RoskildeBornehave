@@ -51,10 +51,4 @@ public class JDBCWriter {
         return resultSet;
     }
 
-
-
-    public void printTable(String table) {
-
-    }
-
 }

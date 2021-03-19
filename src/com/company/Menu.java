@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
     Scanner in = new Scanner(System.in);
     Administration administration = new Administration();
-    HandleGuardian listAdministration = new HandleGuardian();
+    HandleGuardian handleGuardian = new HandleGuardian();
 
     public void menu(){
         System.out.println("\nRoskilde Frie Børnehave\nVælg menufunktion: \n\n");
@@ -43,7 +43,7 @@ public class Menu {
                     administration.administrateEmployee();
                     break;
                 case 6:
-                    listAdministration.guardianList();
+                    handleGuardian.guardianList();
                     break;
                 default:
                     System.out.println("Fejl, vælg et tal der svarer til menuens muligheder.");
