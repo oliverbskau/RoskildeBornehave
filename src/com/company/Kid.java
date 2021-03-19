@@ -16,6 +16,7 @@ public class Kid {
         setFirstname(firstname);
         setLastname(lastname);
         setDateOfBirth(dateOfBirth);
+        setPresent(present);
         setGuardians(guardian1,guardian2);
     }
 
