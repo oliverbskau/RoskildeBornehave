@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Date;
+import java.util.ArrayList;
 
 public class Kid {
 
@@ -8,6 +9,7 @@ public class Kid {
     private String lastname;
     private Date dateOfBirth;
     private boolean present;
+    private ArrayList<Guardian> guardians;
 
     public Kid(String firstname, String lastname, Date dateOfBirth) {
         setFirstname(firstname);

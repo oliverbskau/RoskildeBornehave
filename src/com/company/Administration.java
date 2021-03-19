@@ -9,6 +9,7 @@ public class Administration {
 
     public Administration() {
         jdbcWriter = new JDBCWriter();
+        jdbcWriter.setConnection();
     }
 
     /**

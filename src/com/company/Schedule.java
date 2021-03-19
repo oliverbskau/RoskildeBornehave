@@ -4,7 +4,6 @@ public class Schedule {
 
     public void seeSchedule(){
 
-
     }
 
     public void addToSchedule(){

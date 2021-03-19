@@ -8,7 +8,7 @@ private String email;
 private String phonenumber;
 
 
-    public Guardian(){
+    public Guardian(String firstname, String lastname, String email, String phonenumber){
         setFirstname(firstname);
         setLastname(lastname);
         setEmail(email);
