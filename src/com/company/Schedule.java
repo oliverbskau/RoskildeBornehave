@@ -13,6 +13,7 @@ public class Schedule {
         try {
             Statement statement = connection.createStatement();
             statement.executeQuery(query);
+
         } catch (Exception e) {
             System.out.println("Fejl ved forsøg på at vise vagttider");
         }

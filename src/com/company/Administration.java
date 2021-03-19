@@ -14,9 +14,8 @@ public class Administration {
     public void administrateEmployee(){
         HandleEmployee handleEmployee = new HandleEmployee();
 
-        System.out.println("1. Se liste over medarbejdere\n2. Tilføj medarbejder\n3. Slet medarbejder\n\n0. Tilbage");
-
         boolean run = true;
+        System.out.println("\n1. Se liste over medarbejdere\n2. Tilføj medarbejder\n3. Slet medarbejder\n\n0. Tilbage");
 
         while(run) {
 
@@ -24,6 +23,7 @@ public class Administration {
             switch (choice) {
                 case 0:
                     run = false;
+                    break;
                 case 1:
                     handleEmployee.viewEmployeeList();
                     break;
@@ -39,40 +39,36 @@ public class Administration {
 
     public void administrateKids(){
         HandleKids handleKids = new HandleKids();
-
-        System.out.println("1. Se liste over børn\n2. Tilføj barn\n3. Slet barn\n\n0. Tilbage");
-
         boolean run = true;
-
         while(run) {
-
+            System.out.println("1. Se liste over børn\n2. Tilføj barn\n3. Slet barn\n\n0. Tilbage");
             int choice = in.nextInt();
             switch (choice) {
                 case 0:
                     run = false;
+                    break;
                 case 1:
-
+                    handleKids.seeAllKids();
+                    break;
                 case 2:
-
+                    handleKids.addKid();
+                    break;
                 case 3:
-
+                    handleKids.removeKid();
+                    break;
             }
         }
     }
-
     public void administrateSchedule() {
         Schedule schedule = new Schedule();
-
-        System.out.println("1. Se liste over vagter\n2. Tilføj vagt\n3. Slet vagt\n\n0. Tilbage");
-
         boolean run = true;
-
         while(run) {
-
+            System.out.println("1. Se liste over vagter\n2. Tilføj vagt\n3. Slet vagt\n\n0. Tilbage");
             int choice = in.nextInt();
             switch (choice) {
                 case 0:
                     run = false;
+                    break;
                 case 1:
                     schedule.seeSchedule();
                     break;
@@ -81,6 +77,25 @@ public class Administration {
                     break;
                 case 3:
                     schedule.removeFromSchedule();
+                    break;
+            }
+        }
+    }
+    public void administrateProtocol(){
+        HandleKids handleKids = new HandleKids();
+        boolean run = true;
+        while(run) {
+            System.out.println("1. Se protokol\n2. Rediger protokol\n0. Tilbage");
+            int choice = in.nextInt();
+            switch(choice){
+                case 0:
+                    run = false;
+                    break;
+                case 1:
+                    handleKids.seeProtocol();
+                    break;
+                case 2:
+                    handleKids.setProtocol();
                     break;
             }
         }
