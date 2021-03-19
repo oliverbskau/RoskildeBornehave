@@ -1,8 +1,10 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class HandleKids {
 
-    public void addKid(){
+    public void addKid() {
 
     }
 

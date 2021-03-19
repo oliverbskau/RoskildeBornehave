@@ -7,10 +7,6 @@ public class Administration {
     private JDBCWriter jdbcWriter;
     Scanner in = new Scanner(System.in);
 
-    public Administration() {
-        jdbcWriter = new JDBCWriter();
-        jdbcWriter.setConnection();
-    }
 
     /**
      * Administrates methods tied to handleemployees, see, add and delete employees

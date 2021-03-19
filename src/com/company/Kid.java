@@ -57,7 +57,4 @@ public class Kid {
     public String toString(){
         return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth() + " | Tilstede: " + getPresent();
     }
-
-
-
 }

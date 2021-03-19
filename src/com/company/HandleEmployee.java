@@ -1,6 +1,5 @@
 package com.company;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +8,14 @@ import java.util.*;
 public class HandleEmployee {
 
     JDBCWriter jdbcWriter = new JDBCWriter();
-    Connection connection = null;
     Scanner in = new Scanner(System.in);
 
+    public HandleEmployee() {
+        jdbcWriter.setConnection();
+    }
+
     public void viewEmployeeList(){
-        jdbcWriter.retrieveDataFromDB("employee");
+        printEmployees();
     }
 
     public void addEmployee() {
@@ -29,7 +31,7 @@ public class HandleEmployee {
         String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
 
         try {
-            PreparedStatement insertValuesEmployee = connection.prepareStatement(insertInto);
+            PreparedStatement insertValuesEmployee = jdbcWriter.getConnection().prepareStatement(insertInto);
             insertValuesEmployee.setString(1,firstname);
             insertValuesEmployee.setString(2,lastname);
             insertValuesEmployee.setString(3,email);
@@ -55,7 +57,7 @@ public class HandleEmployee {
         String query = "DELETE FROM employees WHERE firstname LIKE ? AND lastname LIKE ?";
 
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = jdbcWriter.getConnection().prepareStatement(query);
             preparedStatement.setString(1, firstname);
             preparedStatement.setString(2, lastname);
             preparedStatement.executeQuery(query);
@@ -64,7 +66,7 @@ public class HandleEmployee {
         }
     }
 
-    public void printEmployees(JDBCWriter jdbcWriter) {
+    public void printEmployees() {
         ResultSet resultset = jdbcWriter.retrieveDataFromDB("employee");
         int counter = 1;
         try {
