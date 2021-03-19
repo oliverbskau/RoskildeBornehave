@@ -1,16 +1,21 @@
 package com.company;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class HandleEmployee {
+
+    Connection connection = null;
 
     public void viewEmployeeList(JDBCWriter jdbcWriter){
         printEmployees(jdbcWriter);
 
     }
 
-    public void addEmployee(JDBCWriter jdbcWriter){
+    public void addEmployee() {
         Scanner addEmployeeScanner = new Scanner(System.in);
         System.out.println("Fornavn: ");
         String firstname = addEmployeeScanner.nextLine();
@@ -20,9 +25,21 @@ public class HandleEmployee {
         String email = addEmployeeScanner.nextLine();
         System.out.println("Telefon: ");
         String phonenumber = addEmployeeScanner.nextLine();
-        Employee employee = new Employee(firstname, lastname, email, phonenumber);
 
-        jdbcWriter.addEmployeeToTable(employee);
+        String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
+
+        try {
+            PreparedStatement insertValuesEmployee = connection.prepareStatement(insertInto);
+            insertValuesEmployee.setString(1,firstname);
+            insertValuesEmployee.setString(2,lastname);
+            insertValuesEmployee.setString(3,email);
+            insertValuesEmployee.setString(4, phonenumber));
+            insertValuesEmployee.executeQuery();
+            System.out.println("\n| Medarbejder tilføjet til database |");
+
+        }catch(SQLException sqlError){
+            System.out.println("Fejl, medarbejderen blev ikke gemt i database");
+        }
     }
 
     public void deleteEmployee(JDBCWriter jdbcWriter){
@@ -35,6 +52,17 @@ public class HandleEmployee {
         System.out.println("Skriv efternavn:");
         String lastname = deleteEmployeeScanner.next();
         jdbcWriter.deleteEmployeeFromTable(firstname,lastname);
+
+        String query = "DELETE FROM employees WHERE firstname LIKE ? AND lastname LIKE ?";
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, firstname);
+            preparedStatement.setString(2, lastname);
+            preparedStatement.executeQuery(query);
+        } catch(SQLException e) {
+            System.out.println("Fejl ved sletning af ansat");
+        }
     }
 
     public void printEmployees(JDBCWriter jdbcWriter) {
