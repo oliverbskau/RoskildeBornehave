@@ -41,16 +41,15 @@ public class HandleKids {
             System.out.println("Skriv venligst enten true eller false: onWaitinglist");
         }
 
-        String insertInto = "INSERT INTO kids(firstname, lastname, dateofbirth, present, onWaitinglist) values(?,?,?,?,?);";
+        String insertInto = "INSERT INTO kids(firstname, lastname, dateofbirth) values(?,?,?,?,?);";
 
         try {
-            PreparedStatement insertValuesEmployee = jdbcWriter.getConnection().prepareStatement(insertInto);
-            insertValuesEmployee.setString(1,firstname);
-            insertValuesEmployee.setString(2,lastname);
-            insertValuesEmployee.setString(3,dateOfBirth);
-            insertValuesEmployee.setString(4, present);
+            PreparedStatement insertValuesKid = jdbcWriter.getConnection().prepareStatement(insertInto);
+            insertValuesKid.setString(1,firstname);
+            insertValuesKid.setString(2,lastname);
+            insertValuesKid.setString(3,dateOfBirth);
+            insertValuesKid.executeQuery();
 
-            insertValuesEmployee.executeQuery();
             System.out.println("\n| Barn tilføjet til database |");
 
         }catch(SQLException sqlError){
