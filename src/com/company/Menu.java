@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
     Scanner in = new Scanner(System.in);
     Administration administration = new Administration();
-    ListAdministration listAdministration = new ListAdministration();
+    HandleGuardian listAdministration = new HandleGuardian();
 
     public void menu(){
         System.out.println("\nRoskilde Frie Børnehave\nVælg menufunktion: \n\n");
@@ -13,8 +13,10 @@ public class Menu {
         boolean run = true;
 
         while (run) {
+            System.out.println("\nMenu: ");
             System.out.println("1. Vagtplan\n2. Protokol\n3. Venteliste\n" +
-                    "4. Børn\n5. Ansatte\n6. Telefonliste\n7. Forældreliste\n\n0. Afslut");
+                    "4. Børn\n5. Ansatte\n6. Forældreliste\n\n0. Afslut");
+            System.out.print("Vælg: ");
 
             int choice = in.nextInt();
 
@@ -37,21 +39,12 @@ public class Menu {
                 case 4:
                     administration.administrateKids();
                     break;
-
                 case 5:
                     administration.administrateEmployee();
                     break;
-
                 case 6:
-
-                    break;
-
-                case 7:
-
                     listAdministration.guardianList();
-
                     break;
-
                 default:
                     System.out.println("Fejl, vælg et tal der svarer til menuens muligheder.");
             }

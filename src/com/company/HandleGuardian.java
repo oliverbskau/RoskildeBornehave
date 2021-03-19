@@ -5,28 +5,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ListAdministration {
+public class HandleGuardian {
 
 JDBCWriter jdbcWriter = new JDBCWriter();
 
     public void guardianList() {
 
-        jdbcWriter.setConnection();
-        String listGuardians = "select * from guardians\n" +
-                "join (select firstname, lastname from kids) kids\n" +
-                "order by guardianid;";
+       jdbcWriter.setConnection();
+
+        String listGuardians = "select * from guardians;";
 
 
         try{
             PreparedStatement guardianStatement = jdbcWriter.getConnection().prepareStatement(listGuardians);
             ResultSet guardianRs = guardianStatement.executeQuery();
-
-
+            System.out.println("\nForældre liste: ");
             int count = 1;
             while(guardianRs.next()){
-                System.out.println(count + ". Fornavn: " + guardianRs.getString("firstname")
-                + " | Efternavn: " + guardianRs.getString("lastname" + " | Telefon: " + guardianRs.getString("phonenumber")));
+                System.out.println(count + ". Forælder: " + guardianRs.getString("firstname")
+                + " " + guardianRs.getString("lastname") + " | Telefon: " + guardianRs.getString("phonenumber"));
                 count++;
+                System.out.println("");
+
             }
 
         }catch (SQLException SQLerror){
@@ -34,12 +34,4 @@ JDBCWriter jdbcWriter = new JDBCWriter();
         }
 
     }
-
-    public void phoneList () {
-
-
-    }
-
-
-
 }
