@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Menu {
     Scanner in = new Scanner(System.in);
     Administration administration = new Administration();
+    ListAdministration listAdministration = new ListAdministration();
 
     public void menu(){
         System.out.println("\nRoskilde Frie Børnehave\nVælg menufunktion: \n\n");
@@ -13,7 +14,7 @@ public class Menu {
 
         while (run) {
             System.out.println("1. Vagtplan\n2. Protokol\n3. Venteliste\n" +
-                    "4. Børn\n5. Ansatte\n6. Telefonliste\n\n0. Afslut");
+                    "4. Børn\n5. Ansatte\n6. Telefonliste\n7. Forældreliste\n\n0. Afslut");
 
             int choice = in.nextInt();
 
@@ -43,6 +44,12 @@ public class Menu {
                     break;
 
                 case 6:
+
+                    break;
+
+                case 7:
+
+                    listAdministration.guardianList();
 
                     break;
 
