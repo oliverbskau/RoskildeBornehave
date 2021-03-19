@@ -8,23 +8,23 @@ import java.util.*;
 
 public class HandleEmployee {
 
+    JDBCWriter jdbcWriter = new JDBCWriter();
     Connection connection = null;
+    Scanner in = new Scanner(System.in);
 
-    public void viewEmployeeList(JDBCWriter jdbcWriter){
-        printEmployees(jdbcWriter);
-
+    public void viewEmployeeList(){
+        jdbcWriter.retrieveDataFromDB("employee");
     }
 
     public void addEmployee() {
-        Scanner addEmployeeScanner = new Scanner(System.in);
         System.out.println("Fornavn: ");
-        String firstname = addEmployeeScanner.nextLine();
+        String firstname = in.nextLine();
         System.out.println("Efternavn: ");
-        String lastname = addEmployeeScanner.nextLine();
+        String lastname = in.nextLine();
         System.out.println("Email: ");
-        String email = addEmployeeScanner.nextLine();
+        String email = in.nextLine();
         System.out.println("Telefon: ");
-        String phonenumber = addEmployeeScanner.nextLine();
+        String phonenumber = in.nextLine();
 
         String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
 
@@ -33,7 +33,7 @@ public class HandleEmployee {
             insertValuesEmployee.setString(1,firstname);
             insertValuesEmployee.setString(2,lastname);
             insertValuesEmployee.setString(3,email);
-            insertValuesEmployee.setString(4, phonenumber));
+            insertValuesEmployee.setString(4, phonenumber);
             insertValuesEmployee.executeQuery();
             System.out.println("\n| Medarbejder tilføjet til database |");
 
@@ -42,16 +42,15 @@ public class HandleEmployee {
         }
     }
 
-    public void deleteEmployee(JDBCWriter jdbcWriter){
-        Scanner deleteEmployeeScanner = new Scanner(System.in);
-        printEmployees(jdbcWriter);
+    public void deleteEmployee(){
+        Scanner in = new Scanner(System.in);
+        jdbcWriter.retrieveDataFromDB("employee");
 
         System.out.println("Hvilken medarbejder vil du gerne fjerne?");
         System.out.println("Skriv fornavn:");
-        String firstname = deleteEmployeeScanner.next();
+        String firstname = in.nextLine();
         System.out.println("Skriv efternavn:");
-        String lastname = deleteEmployeeScanner.next();
-        jdbcWriter.deleteEmployeeFromTable(firstname,lastname);
+        String lastname = in.nextLine();
 
         String query = "DELETE FROM employees WHERE firstname LIKE ? AND lastname LIKE ?";
 

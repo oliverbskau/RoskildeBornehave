@@ -25,11 +25,11 @@ public class Administration {
 
         switch (choice) {
             case 1:
-                handleEmployee.viewEmployeeList(jdbcWriter);
+                handleEmployee.viewEmployeeList();
             case 2:
-                handleEmployee.addEmployee(jdbcWriter);
+                handleEmployee.addEmployee();
             case 3:
-                handleEmployee.deleteEmployee(jdbcWriter);
+                handleEmployee.deleteEmployee();
         }
     }
 
