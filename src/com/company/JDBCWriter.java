@@ -17,7 +17,6 @@ public class JDBCWriter {
     public void setConnection() {
         try {
             connection = DriverManager.getConnection(CONNECTIONSTRING,DBUSER,PASSWORD);
-            System.out.println("Connection established...");
 
         } catch (SQLException e) {
             System.err.println("Error message: " + e.getMessage());

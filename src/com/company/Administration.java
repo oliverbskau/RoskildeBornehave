@@ -14,9 +14,8 @@ public class Administration {
     public void administrateEmployee(){
         HandleEmployee handleEmployee = new HandleEmployee();
 
-        System.out.println("1. Se liste over medarbejdere\n2. Tilføj medarbejder\n3. Slet medarbejder\n\n0. Tilbage");
-
         boolean run = true;
+        System.out.println("\n1. Se liste over medarbejdere\n2. Tilføj medarbejder\n3. Slet medarbejder\n\n0. Tilbage");
 
         while(run) {
 
@@ -24,6 +23,7 @@ public class Administration {
             switch (choice) {
                 case 0:
                     run = false;
+                    break;
                 case 1:
                     handleEmployee.viewEmployeeList();
                     break;
