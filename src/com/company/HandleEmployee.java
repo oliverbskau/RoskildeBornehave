@@ -43,10 +43,10 @@ public class HandleEmployee {
         try {
             while (resultset.next()) {
                 System.out.println(counter + ". Fornavn: " + resultset.getString("firstname") + ", " +
-                        "efternavn " + resultset.getString("lastname") + ", " +
-                        "Email: " + resultset.getString("email") + ", " +
-                        "Telefonnummer: " + resultset.getString("phonenumber") + ", " +
-                        "OpgaveID: " + resultset.getInt("dutyid"));
+                        " | Efternavn " + resultset.getString("lastname") +
+                        " | Email: " + resultset.getString("email") +
+                        " | Telefonnummer: " + resultset.getString("phonenumber") +
+                        " | OpgaveID: " + resultset.getInt("dutyid"));
                 counter ++;
             }
         } catch (Exception e) {
