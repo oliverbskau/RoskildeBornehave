@@ -39,27 +39,26 @@ public class Administration {
 
     public void administrateKids(){
         HandleKids handleKids = new HandleKids();
-
-        System.out.println("1. Se liste over børn\n2. Tilføj barn\n3. Slet barn\n\n0. Tilbage");
-
         boolean run = true;
-
         while(run) {
-
+            System.out.println("1. Se liste over børn\n2. Tilføj barn\n3. Slet barn\n\n0. Tilbage");
             int choice = in.nextInt();
             switch (choice) {
                 case 0:
                     run = false;
+                    break;
                 case 1:
-
+                    handleKids.seeAllKids();
+                    break;
                 case 2:
-
+                    handleKids.addKid();
+                    break;
                 case 3:
-
+                    handleKids.removeKid();
+                    break;
             }
         }
     }
-
     public void administrateSchedule() {
         Schedule schedule = new Schedule();
         boolean run = true;

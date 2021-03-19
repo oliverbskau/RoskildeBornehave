@@ -29,7 +29,7 @@ public class Menu {
                     break;
 
                 case 2:
-
+                    administration.administrateProtocol();
                     break;
 
                 case 3:
