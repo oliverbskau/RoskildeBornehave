@@ -35,8 +35,6 @@ public class HandleEmployee {
         System.out.println("Skriv efternavn:");
         String lastname = deleteEmployeeScanner.next();
         jdbcWriter.deleteEmployeeFromTable(firstname,lastname);
-
-
     }
 
     public void printEmployees(JDBCWriter jdbcWriter) {
