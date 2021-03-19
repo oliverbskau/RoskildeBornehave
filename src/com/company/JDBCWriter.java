@@ -37,7 +37,7 @@ public class JDBCWriter {
 
     public ResultSet retrieveDataFromDB(String tableName) {
         ResultSet resultSet = null;
-        String query = "SELECT * FROM " + tableName + "order by lastname desc;";
+        String query = "SELECT * FROM " + tableName + " ORDER BY lastname DESC;";
 
         try{
             Statement statement = connection.createStatement();

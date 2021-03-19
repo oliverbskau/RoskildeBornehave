@@ -4,7 +4,6 @@ public class HandleKids {
 
     public void addKid(){
 
-
     }
 
     public void removeKid(){
@@ -13,7 +12,6 @@ public class HandleKids {
     }
 
     public void seeAllKids(){
-
 
     }
 

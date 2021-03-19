@@ -11,10 +11,11 @@ public class Kid {
     private boolean present;
     private ArrayList<Guardian> guardians;
 
-    public Kid(String firstname, String lastname, Date dateOfBirth) {
+    public Kid(String firstname, String lastname, Date dateOfBirth, Guardian guardian1, Guardian guardian2) {
         setFirstname(firstname);
         setLastname(lastname);
         setDateOfBirth(dateOfBirth);
+        setGuardians(guardian1,guardian2);
     }
 
     public String getFirstname(){
@@ -44,7 +45,14 @@ public class Kid {
     public void setPresent(boolean present){
         this.present = present;
     }
+    public ArrayList<Guardian> getGuardians() {
+        return guardians;
+    }
 
+    public void setGuardians(Guardian guardians1, Guardian guardian2){
+        this.guardians.add(guardians1);
+        this.guardians.add(guardian2);
+    }
 
     public String toString(){
         return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth() + " | Tilstede: " + getPresent();
