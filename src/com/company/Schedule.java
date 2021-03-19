@@ -2,14 +2,22 @@ package com.company;
 
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Schedule {
     Scanner in = new Scanner(System.in);
+    JDBCWriter jdbcWriter = new JDBCWriter();
     Connection connection = null;
 
+    public Schedule() {
+        jdbcWriter.setConnection();
+        connection = jdbcWriter.getConnection();
+    }
+
     public void seeSchedule(){
-        String query = "SELECT FROM schedules";
+        String query = "SELECT * FROM duties";
         try {
             Statement statement = connection.createStatement();
             statement.executeQuery(query);
@@ -20,15 +28,23 @@ public class Schedule {
     }
 
     public void addToSchedule(){
-        System.out.println("Hvad tid starter din vagt?");
+        System.out.println("Hvad dato skal vagten ligge på?(dd-mm-yyyy)");
+        Date shiftDate = Date.valueOf(in.next());
+        System.out.println("Hvad tid starter vagten? (HH:MM:SS)");
         String start = in.nextLine();
-        System.out.println("Hvad tid slutter din vagt?");
+        System.out.println("Hvad tid slutter vagten? (HH:MM:SS)");
         String slut = in.nextLine();
 
-        String query = "INSERT INTO schedules(" + start + ", " + slut + ");";
+        String query = "INSERT INTO schedules(" + shiftDate + ", " + start + ", " + slut + ");";
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()) {
+                System.out.println("Dato for vagt: " + resultSet.getDate("Date") +
+                        " | Starttidspunkt" + resultSet.getTime("start") +
+                        " | Sluttidspunkt: " + resultSet.getTime("end"));
+            }
         } catch (Exception e) {
             System.out.println("Fejl ved tilføjelse af dato for vagt");
         }
