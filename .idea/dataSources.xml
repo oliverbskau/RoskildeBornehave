@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="roskildebornehave@127.0.0.1 [2]" uuid="71a53e6f-f00e-49a0-86d7-edd148753ca2">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1:3306/roskildebornehave?serverTimezone=UTC</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="roskildebornehave@127.0.0.1" uuid="42f6ad16-263d-456b-acfd-6cd6483950ab">
+    <data-source source="LOCAL" name="roskildebornehave@127.0.0.1" uuid="5e6004f4-db4b-41e4-b604-fa5275926847">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

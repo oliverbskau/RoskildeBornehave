@@ -7,7 +7,7 @@ public class Menu {
     Administration administration = new Administration();
 
     public void menu(){
-        System.out.println("Roskilde Frie Børnehave\nVælg menufunktion: \n\n");
+        System.out.println("\nRoskilde Frie Børnehave\nVælg menufunktion: \n\n");
 
         boolean run = true;
 
