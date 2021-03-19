@@ -22,9 +22,8 @@ public class Menu {
                 case 0:
                     run = false;
                     break;
-
                 case 1:
-
+                    administration.administrateSchedule();
                     break;
 
                 case 2:
@@ -36,7 +35,7 @@ public class Menu {
                     break;
 
                 case 4:
-
+                    administration.administrateKids();
                     break;
 
                 case 5:

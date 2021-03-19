@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Administration {
 
     private JDBCWriter jdbcWriter;
+    Scanner in = new Scanner(System.in);
 
     public Administration() {
         jdbcWriter = new JDBCWriter();
@@ -15,29 +16,77 @@ public class Administration {
      * Administrates methods tied to handleemployees, see, add and delete employees
      */
     public void administrateEmployee(){
-        Scanner scanner = new Scanner(System.in);
         HandleEmployee handleEmployee = new HandleEmployee();
 
-        System.out.println("1. Se liste over medarbejdere");
-        System.out.println("2. Tilføj medarbejder");
-        System.out.println("3. Slet medarbejder");
-        int choice = scanner.nextInt();
+        System.out.println("1. Se liste over medarbejdere\n2. Tilføj medarbejder\n3. Slet medarbejder\n\n0. Tilbage");
 
-        switch (choice) {
-            case 1:
-                handleEmployee.viewEmployeeList();
-            case 2:
-                handleEmployee.addEmployee();
-            case 3:
-                handleEmployee.deleteEmployee();
+        boolean run = true;
+
+        while(run) {
+
+            int choice = in.nextInt();
+            switch (choice) {
+                case 0:
+                    run = false;
+                case 1:
+                    handleEmployee.viewEmployeeList();
+                    break;
+                case 2:
+                    handleEmployee.addEmployee();
+                    break;
+                case 3:
+                    handleEmployee.deleteEmployee();
+                    break;
+            }
         }
     }
 
     public void administrateKids(){
+        HandleKids handleKids = new HandleKids();
 
+        System.out.println("1. Se liste over børn\n2. Tilføj barn\n3. Slet barn\n\n0. Tilbage");
+
+        boolean run = true;
+
+        while(run) {
+
+            int choice = in.nextInt();
+            switch (choice) {
+                case 0:
+                    run = false;
+                case 1:
+
+                case 2:
+
+                case 3:
+
+            }
+        }
     }
 
     public void administrateSchedule() {
+        Schedule schedule = new Schedule();
 
+        System.out.println("1. Se liste over vagter\n2. Tilføj vagt\n3. Slet vagt\n\n0. Tilbage");
+
+        boolean run = true;
+
+        while(run) {
+
+            int choice = in.nextInt();
+            switch (choice) {
+                case 0:
+                    run = false;
+                case 1:
+                    schedule.seeSchedule();
+                    break;
+                case 2:
+                    schedule.addToSchedule();
+                    break;
+                case 3:
+                    schedule.removeFromSchedule();
+                    break;
+            }
+        }
     }
 }
