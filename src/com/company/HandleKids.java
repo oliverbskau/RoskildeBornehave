@@ -16,10 +16,17 @@ public class HandleKids {
 
     }
 
-    public void setPresence(){
+    public void seeProtocol(){
 
 
     }
+
+    public void setProtocol(){
+
+
+    }
+
+
 
 
 }
