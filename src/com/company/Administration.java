@@ -82,7 +82,7 @@ public class Administration {
         HandleKids handleKids = new HandleKids();
         boolean run = true;
         while(run) {
-            System.out.println("1. Se protokol\n2. Rediger protokol\n0. Tilbage");
+            System.out.println("1. Se protokol\n2. Rediger protokol\n\n0. Tilbage");
             int choice = in.nextInt();
             switch(choice){
                 case 0:
