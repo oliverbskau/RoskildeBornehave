@@ -7,8 +7,8 @@ import java.util.*;
 
 public class HandleEmployee {
 
-    JDBCWriter jdbcWriter = new JDBCWriter();
-    Scanner in = new Scanner(System.in);
+    private JDBCWriter jdbcWriter = new JDBCWriter();
+    private Scanner in = new Scanner(System.in);
 
     public HandleEmployee() {
         jdbcWriter.setConnection();

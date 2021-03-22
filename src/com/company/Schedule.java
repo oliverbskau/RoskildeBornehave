@@ -2,14 +2,12 @@ package com.company;
 
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Schedule {
-    Scanner in = new Scanner(System.in);
-    JDBCWriter jdbcWriter = new JDBCWriter();
-    Connection connection = null;
+    private Scanner in = new Scanner(System.in);
+    private JDBCWriter jdbcWriter = new JDBCWriter();
+    private Connection connection = null;
 
     public Schedule() {
         jdbcWriter.setConnection();
@@ -20,7 +18,13 @@ public class Schedule {
         String query = "SELECT * FROM duties";
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()) {
+                System.out.println("Dato for vagt: " + resultSet.getDate("Date") +
+                        " | Starttidspunkt" + resultSet.getTime("start") +
+                        " | Sluttidspunkt: " + resultSet.getTime("end"));
+            }
 
         } catch (Exception e) {
             System.out.println("Fejl ved forsøg på at vise vagttider");
@@ -38,13 +42,8 @@ public class Schedule {
         String query = "INSERT INTO schedules(" + shiftDate + ", " + start + ", " + slut + ");";
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            statement.executeQuery(query);
 
-            while(resultSet.next()) {
-                System.out.println("Dato for vagt: " + resultSet.getDate("Date") +
-                        " | Starttidspunkt" + resultSet.getTime("start") +
-                        " | Sluttidspunkt: " + resultSet.getTime("end"));
-            }
         } catch (Exception e) {
             System.out.println("Fejl ved tilføjelse af dato for vagt");
         }

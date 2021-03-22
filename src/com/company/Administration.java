@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Administration {
 
     private JDBCWriter jdbcWriter;
-    Scanner in = new Scanner(System.in);
+    private Scanner in = new Scanner(System.in);
 
 
     /**
@@ -78,6 +78,7 @@ public class Administration {
             }
         }
     }
+
     public void administrateProtocol(){
         HandleKids handleKids = new HandleKids();
         boolean run = true;
