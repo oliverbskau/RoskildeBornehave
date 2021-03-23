@@ -7,7 +7,6 @@ public class Menu {
     Administration administration = new Administration();
 
 
-
     public void menu(){
 
         System.out.println("\nRoskilde Frie Børnehave\nVælg menufunktion: \n\n");
@@ -16,8 +15,8 @@ public class Menu {
 
         while (run) {
             System.out.println("\nMenu: ");
-            System.out.println("1. Vagtplan\n2. Protokol\n3. Venteliste\n" +
-                    "4. Børn\n5. Ansatte\n6. Forældreliste\n\n0. Afslut");
+            System.out.println("1. Vagtplan\n2. Protokol\n" +
+                    "3. Børn\n4. Ansatte\n5. Forældre\n\n0. Afslut");
             System.out.print("Vælg: ");
 
             int choice = in.nextInt();
@@ -33,18 +32,13 @@ public class Menu {
                 case 2:
                     administration.administrateProtocol();
                     break;
-
                 case 3:
-
-                    break;
-
-                case 4:
                     administration.administrateKids();
                     break;
-                case 5:
+                case 4:
                     administration.administrateEmployee();
                     break;
-                case 6:
+                case 5:
                     administration.administrateGuardian();
                     break;
                 default:

@@ -10,9 +10,11 @@ public class HandleKids {
 
     private JDBCWriter jdbcWriter= new JDBCWriter();
     private     Scanner in = new Scanner(System.in);
-    ArrayList<Kid> kids = new ArrayList<>();
+    private ArrayList<Kid> kids = new ArrayList<>();
+    private ArrayList<Kid> waitingList = new ArrayList<>();
 
     public void addKid(HandleGuardian handleGuardian) {
+        in.nextLine();
         System.out.println("Fornavn: ");
         String firstname = in.nextLine();
         System.out.println("Efternavn: ");
@@ -66,24 +68,59 @@ public class HandleKids {
         handleGuardian.guardianList();
         int theGuradian = in.nextInt()-1;
 
-        kids.add(new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), present, onWaitinglist));
+        Kid newKid = new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), present, onWaitinglist);
+        if(onWaitinglist) {
+            waitingList.add(newKid);
+        } else {
+            kids.add(newKid);
+        }
     }
 
     public void removeKid(){
-        System.out.println("Hvilket barn skal fjernes? ");
-        seeAllKids();
-        int removeKid = in.nextInt()-1;
-        kids.remove(removeKid);
+        System.out.println("Skal barnet fjernes fra børnehavelisten eller ventelisten?");
+        System.out.println("1. Børnehavelisten");
+        System.out.println("2. Ventelisten");
+        int answer = in.nextInt();
+
+        if(answer == 1) {
+            seeAllKids();
+            System.out.println("Hvilke barn vil du gerne fjerne? ");
+            int removeKid = in.nextInt()-1;
+            kids.remove(removeKid);
+        } else if(answer == 2) {
+            seeAllKidsOnWaitingList();
+            System.out.println("Hvilke barn vil du gerne fjerne?");
+            int removeKid = in.nextInt()-1;
+            waitingList.remove(removeKid);
+        }
+    }
+
+    public void transferKidFromWaitingList() {
+        seeAllKidsOnWaitingList();
+        System.out.println("Hvilke barn skal overføres til børnehaven?");
+        int transferKid = in.nextInt()-1;
+
+        Kid kidToTransfer = waitingList.get(transferKid);
+        waitingList.remove(transferKid);
+
+        kids.add(kidToTransfer);
     }
 
     public void seeAllKids(){
-
         int count = 1;
         for (int i = 0; i < kids.size(); i++ ){
             System.out.println(count + ". " + kids.get(i).toString());
             count++;
         }
+    }
 
+    public void seeAllKidsOnWaitingList() {
+        int count = 1;
+        System.out.println("Børn på venteliste: ");
+        for (int i = 0; i < waitingList.size(); i++) {
+            System.out.println(count + ". " + waitingList.get(i).toString());
+            count++;
+        }
     }
 
     public void seeProtocol(){
@@ -112,5 +149,9 @@ public class HandleKids {
     }
     public ArrayList<Kid> getKids(){
         return kids;
+    }
+
+    public ArrayList<Kid> getWaitingList() {
+        return waitingList;
     }
 }
