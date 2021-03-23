@@ -9,6 +9,7 @@ public class HandleEmployee {
 
     private JDBCWriter jdbcWriter = new JDBCWriter();
     private Scanner in = new Scanner(System.in);
+    private ArrayList<Employee> employees = new ArrayList<>();
 
     public HandleEmployee() {
         jdbcWriter.setConnection();
@@ -19,7 +20,7 @@ public class HandleEmployee {
     }
 
     public void addEmployee() {
-        System.out.println("Fornavn: ");
+        System.out.println("\nFornavn: ");
         String firstname = in.nextLine();
         System.out.println("Efternavn: ");
         String lastname = in.nextLine();
@@ -27,7 +28,7 @@ public class HandleEmployee {
         String email = in.nextLine();
         System.out.println("Telefon: ");
         String phonenumber = in.nextLine();
-
+/*
         String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
 
         try {
@@ -42,13 +43,17 @@ public class HandleEmployee {
         }catch(SQLException sqlError){
             System.out.println("Fejl, medarbejderen blev ikke gemt i database");
         }
+
+ */
+        employees.add(new Employee(firstname, lastname, email, phonenumber));
+
     }
 
     public void deleteEmployee(){
         Scanner in = new Scanner(System.in);
         jdbcWriter.retrieveDataFromDB("employee");
 
-        System.out.println("Hvilken medarbejder vil du gerne fjerne?");
+        System.out.println("\nHvilken medarbejder vil du gerne fjerne?");
         System.out.println("Skriv fornavn:");
         String firstname = in.nextLine();
         System.out.println("Skriv efternavn:");
@@ -67,6 +72,7 @@ public class HandleEmployee {
     }
 
     public void printEmployees() {
+       /*
         ResultSet resultset = jdbcWriter.retrieveDataFromDB("employee");
         int counter = 1;
         try {
@@ -82,6 +88,15 @@ public class HandleEmployee {
             System.out.println("Fejl ved forsøg på at printe dataset.");
         }
     }
+*/
+        int count = 1;
+        for (int i = 0; i < employees.size(); i++ ){
+            System.out.println(count + ". " + employees.get(i).toString());
+            count++;
+        }
+    }
 
-
+    public ArrayList<Employee> getEmployees(){
+        return employees;
+    }
 }
