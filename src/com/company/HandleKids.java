@@ -17,8 +17,9 @@ public class HandleKids {
         String firstname = in.nextLine();
         System.out.println("Efternavn: ");
         String lastname = in.nextLine();
-        System.out.println("Fødselsdato: (dd-mm-yyyy)");
+        System.out.println("Fødselsdato: (yyyy-mm-dd)");
         Date dateOfBirth = Date.valueOf(in.next());
+        in.nextLine();
 
 
         System.out.println("Tilstede: (true/false)");
@@ -65,9 +66,6 @@ public class HandleKids {
         handleGuardian.guardianList();
         int theGuradian = in.nextInt()-1;
 
-
-
-
         kids.add(new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), present, onWaitinglist));
     }
 
@@ -111,5 +109,8 @@ public class HandleKids {
             }
 
         }
+    }
+    public ArrayList<Kid> getKids(){
+        return kids;
     }
 }

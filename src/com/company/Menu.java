@@ -45,7 +45,7 @@ public class Menu {
                     administration.administrateEmployee();
                     break;
                 case 6:
-                    administration.guardianList();
+                    administration.administrateGuardian();
                     break;
                 default:
                     System.out.println("Fejl, vælg et tal der svarer til menuens muligheder.");

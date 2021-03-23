@@ -8,6 +8,7 @@ public class Administration {
     private Scanner in = new Scanner(System.in);
     HandleEmployee handleEmployee = new HandleEmployee();
     HandleGuardian handleGuardian = new HandleGuardian();
+    HandleKids handleKids = new HandleKids();
     /**
      * Administrates methods tied to handleemployees, see, add and delete employees
      */
@@ -80,7 +81,6 @@ public class Administration {
     }
 
     public void administrateProtocol(){
-        HandleKids handleKids = new HandleKids();
         boolean run = true;
         while(run) {
             System.out.println("\n1. Se protokol\n2. Rediger protokol\n0. Tilbage");
@@ -99,7 +99,28 @@ public class Administration {
         }
     }
 
-    public void guardianList(){
+    public void administrateGuardian(){
         handleGuardian.guardianList();
+
+        boolean run = true;
+        while(run) {
+            System.out.println("\n1. Se foældre\n2. tilføj forældre\n0. Opdater forældre");
+            int choice = in.nextInt();
+            switch(choice){
+                case 0:
+                    run = false;
+                    break;
+                case 1:
+                    handleGuardian.guardianList();
+                    break;
+                case 2:
+                    handleGuardian.addGuardian();
+                    break;
+                case 3:
+                    handleGuardian.updateGuardian(handleKids);
+                    break;
+            }
+        }
     }
 }
+
