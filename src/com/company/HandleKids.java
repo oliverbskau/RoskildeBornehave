@@ -16,20 +16,12 @@ public class HandleKids {
         String lastname = in.nextLine();
         System.out.println("Fødselsdato: (dd-mm-yyyy)");
         String dateOfBirth = in.nextLine();
-        System.out.println("Tilstede: (true/false)");
-        String presentYN = in.nextLine();
         System.out.println("Er barnet på venteliste? (true/false)");
         String onWaitinglistYN = in.nextLine();
 
-        String present = null;
-
-        if (presentYN.equalsIgnoreCase("false")) {
-            present = "0";
-        } else  if (presentYN.equalsIgnoreCase("true")){
-            present = "1";
-        } else {
-            System.out.println("Skriv enligst enten true eller false: present");
-        }
+        String present = "0";
+        // Standard for barnet er, at det ikke er til stede, da de fleste børn der bliver
+        // oprettet formentlig er på venteliste, og dermed ikke til stede
 
         String onWaitinglist = null;
 
@@ -41,13 +33,16 @@ public class HandleKids {
             System.out.println("Skriv venligst enten true eller false: onWaitinglist");
         }
 
-        String insertInto = "INSERT INTO kids(firstname, lastname, dateofbirth) values(?,?,?,?,?);";
+        String insertInto = "INSERT INTO present(date) VALUES(?);" +
+                "SELECT " +
+                "kids(firstname, lastname, dateofbirth, onWaitinglistid) values(?,?,?,?);";
 
         try {
             PreparedStatement insertValuesKid = jdbcWriter.getConnection().prepareStatement(insertInto);
             insertValuesKid.setString(1,firstname);
             insertValuesKid.setString(2,lastname);
             insertValuesKid.setString(3,dateOfBirth);
+            insertValuesKid.setString(4,onWaitinglist);
             insertValuesKid.executeQuery();
 
             System.out.println("\n| Barn tilføjet til database |");
