@@ -28,7 +28,7 @@ public class HandleEmployee {
         String email = in.nextLine();
         System.out.println("Telefon: ");
         String phonenumber = in.nextLine();
-/*
+
         String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
 
         try {
@@ -44,7 +44,7 @@ public class HandleEmployee {
             System.out.println("Fejl, medarbejderen blev ikke gemt i database");
         }
 
- */
+
         employees.add(new Employee(firstname, lastname, email, phonenumber));
 
     }
@@ -83,7 +83,7 @@ public class HandleEmployee {
     }
 
     public void printEmployees() {
-       /*
+
         ResultSet resultset = jdbcWriter.retrieveDataFromDB("employee");
         int counter = 1;
         try {
@@ -98,15 +98,13 @@ public class HandleEmployee {
         } catch (Exception e) {
             System.out.println("Fejl ved forsøg på at printe dataset.");
         }
-    }
-*/
         int count = 1;
         for (int i = 0; i < employees.size(); i++ ){
             System.out.println(count + ". " + employees.get(i).toString());
             count++;
         }
-    }
 
+    }
     public ArrayList<Employee> getEmployees(){
         return employees;
     }
