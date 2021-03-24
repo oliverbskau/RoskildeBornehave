@@ -66,7 +66,7 @@ public class HandleSchedule {
         Duty duty = duties.get(removeDuty);
         duties.remove(duty);
 
-        String sql = "DELETE FROM schedule WHERE Date=? and start=? and end=?";
+        String sql = "DELETE FROM schedule WHERE Date LIKE ? and start LIKE ? and end LIKE ?";
 
         try(
                 Connection conn = JDBCWriter.getConnection();
@@ -109,4 +109,6 @@ public class HandleSchedule {
             System.out.println("Fejl i at hente guardians fra db");
         }
     }
+
+
 }
