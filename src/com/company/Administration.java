@@ -6,13 +6,14 @@ public class Administration {
 
     private JDBCWriter jdbcWriter;
     private Scanner in = new Scanner(System.in);
-
-
+    HandleEmployee handleEmployee = new HandleEmployee();
+    HandleGuardian handleGuardian = new HandleGuardian();
+    HandleKids handleKids = new HandleKids();
     /**
      * Administrates methods tied to handleemployees, see, add and delete employees
      */
     public void administrateEmployee(){
-        HandleEmployee handleEmployee = new HandleEmployee();
+
         boolean run = true;
         while(run) {
             System.out.println("\n1. Se liste over medarbejdere\n2. Tilføj medarbejder\n3. Slet medarbejder\n\n0. Tilbage");
@@ -33,12 +34,12 @@ public class Administration {
             }
         }
     }
-
     public void administrateKids(){
         HandleKids handleKids = new HandleKids();
         boolean run = true;
         while(run) {
-            System.out.println("1. Se liste over børn\n2. Tilføj barn\n3. Slet barn\n\n0. Tilbage");
+            System.out.println("\n1. Se liste over børn\n2. Se liste over børn på venteliste\n3. før barn over fra venteliste" +
+                    "\n4. Tilføj barn\n5. Slet barn\n\n0. Tilbage");
             int choice = in.nextInt();
             switch (choice) {
                 case 0:
@@ -47,10 +48,16 @@ public class Administration {
                 case 1:
                     handleKids.seeAllKids();
                     break;
-                case 2:
-                    handleKids.addKid();
-                    break;
                 case 3:
+                    handleKids.transferKidFromWaitingList();
+                    break;
+                case 2:
+                    handleKids.seeAllKidsOnWaitingList();
+                    break;
+                case 4:
+                    handleKids.addKid(handleGuardian);
+                    break;
+                case 5:
                     handleKids.removeKid();
                     break;
             }
@@ -60,7 +67,7 @@ public class Administration {
         Schedule schedule = new Schedule();
         boolean run = true;
         while(run) {
-            System.out.println("1. Se liste over vagter\n2. Tilføj vagt\n3. Slet vagt\n\n0. Tilbage");
+            System.out.println("\n1. Se liste over vagter\n2. Tilføj vagt\n3. Slet vagt\n\n0. Tilbage");
             int choice = in.nextInt();
             switch (choice) {
                 case 0:
@@ -70,7 +77,7 @@ public class Administration {
                     schedule.seeSchedule();
                     break;
                 case 2:
-                    schedule.addToSchedule();
+                    schedule.addToSchedule(handleEmployee);
                     break;
                 case 3:
                     schedule.removeFromSchedule();
@@ -78,12 +85,10 @@ public class Administration {
             }
         }
     }
-
     public void administrateProtocol(){
-        HandleKids handleKids = new HandleKids();
         boolean run = true;
         while(run) {
-            System.out.println("1. Se protokol\n2. Rediger protokol\n\n0. Tilbage");
+            System.out.println("\n1. Se protokol\n2. Rediger protokol\n0. Tilbage");
             int choice = in.nextInt();
             switch(choice){
                 case 0:
@@ -98,4 +103,28 @@ public class Administration {
             }
         }
     }
+    public void administrateGuardian(){
+        handleGuardian.guardianList();
+
+        boolean run = true;
+        while(run) {
+            System.out.println("\n1. Se forældre\n2. tilføj forældre\n3. Opdater forældre\n0. Tilbage");
+            int choice = in.nextInt();
+            switch(choice){
+                case 0:
+                    run = false;
+                    break;
+                case 1:
+                    handleGuardian.guardianList();
+                    break;
+                case 2:
+                    handleGuardian.addGuardian();
+                    break;
+                case 3:
+                    handleGuardian.updateGuardian(handleKids);
+                    break;
+            }
+        }
+    }
 }
+

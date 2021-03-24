@@ -3,18 +3,29 @@ package com.company;
 
 import java.sql.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Schedule {
     private Scanner in = new Scanner(System.in);
     private JDBCWriter jdbcWriter = new JDBCWriter();
     private Connection connection = null;
+    private ArrayList<Duty> duties = new ArrayList<>();
 
     public Schedule() {
-        jdbcWriter.setConnection();
+        //  jdbcWriter.setConnection();
         connection = jdbcWriter.getConnection();
     }
 
     public void seeSchedule(){
+
+        System.out.println();
+        int count = 1;
+        for (int i = 0; i < duties.size(); i++){
+            System.out.println(count + ". " + duties.get(i).toString());
+            count++;
+        }
+
+       /*
         String query = "SELECT * FROM duties";
         try {
             Statement statement = connection.createStatement();
@@ -29,16 +40,25 @@ public class Schedule {
         } catch (Exception e) {
             System.out.println("Fejl ved forsøg på at vise vagttider");
         }
+
+        */
     }
 
-    public void addToSchedule(){
-        System.out.println("Hvad dato skal vagten ligge på?(dd-mm-yyyy)");
-        Date shiftDate = Date.valueOf(in.next());
-        System.out.println("Hvad tid starter vagten? (HH:MM:SS)");
-        String start = in.nextLine();
-        System.out.println("Hvad tid slutter vagten? (HH:MM:SS)");
-        String slut = in.nextLine();
+    public void addToSchedule(HandleEmployee handleEmployee){
 
+        System.out.println("\nHvad dato skal vagten ligge på?(yyyy-mm-dd)");
+        Date date = Date.valueOf(in.next());
+        in.nextLine();
+        System.out.println("Hvad tid starter vagten? (HH:MM:SS)");
+        String startTime = in.nextLine();
+        System.out.println("Hvad tid slutter vagten? (HH:MM:SS)");
+        String endTime = in.nextLine();
+        System.out.println("Hvilken medarbejder skal tilføjes tilføjes til vagten?");
+        handleEmployee.printEmployees();
+        int assignEmployee = in.nextInt()-1;
+
+
+        /*
         String query = "INSERT INTO schedules(" + shiftDate + ", " + start + ", " + slut + ");";
         try {
             Statement statement = connection.createStatement();
@@ -47,11 +67,20 @@ public class Schedule {
         } catch (Exception e) {
             System.out.println("Fejl ved tilføjelse af dato for vagt");
         }
+
+         */
+
+        duties.add(new Duty(date , startTime, endTime, handleEmployee.getEmployees().get(assignEmployee)));
+
+
     }
 
     public void removeFromSchedule(){
+
         seeSchedule();
-        System.out.println("Hvilken vagt ønsker du at slette?");
+
+        System.out.println("\nHvilken vagt ønsker du at slette?");
+        /*
         System.out.println("ID for vagt: ");
         String iD = in.nextLine();
         System.out.println("Skriv datoen for vagten: (dd-mm-yyyy)");
@@ -69,6 +98,9 @@ public class Schedule {
         } catch (Exception e) {
             System.out.println("Fejl ved tilføjelse af dato for vagt");
         }
+*/
+        int removeDutie = in.nextInt()-1;
+        duties.remove(removeDutie);
 
     }
 }

@@ -10,14 +10,15 @@ public class Kid {
     private Date dateOfBirth;
     private boolean present;
     private boolean onWaitinglist;
-    private ArrayList<Guardian> guardians;
+    private Guardian guardian;
 
-    public Kid(String firstname, String lastname, Date dateOfBirth, Guardian guardian1, Guardian guardian2) {
+    public Kid(String firstname, String lastname, Date dateOfBirth, Guardian guardian, boolean present , boolean onWaitinglist) {
         setFirstname(firstname);
         setLastname(lastname);
         setDateOfBirth(dateOfBirth);
         setPresent(present);
-        setGuardians(guardian1,guardian2);
+        setGuardian(guardian);
+        setOnWaitinglist(onWaitinglist);
     }
 
     public String getFirstname(){
@@ -47,16 +48,27 @@ public class Kid {
     public void setPresent(boolean present){
         this.present = present;
     }
-    public ArrayList<Guardian> getGuardians() {
-        return guardians;
+
+    public Guardian getGuardian() {
+        return guardian;
     }
 
-    public void setGuardians(Guardian guardians1, Guardian guardian2){
-        this.guardians.add(guardians1);
-        this.guardians.add(guardian2);
+    public void setGuardian(Guardian guardian){
+        this.guardian = guardian;
+
+    }
+
+    public boolean getOnWaitinglist(){
+        return onWaitinglist;
+    }
+    public void setOnWaitinglist(boolean onWaitinglist){
+        this.onWaitinglist = onWaitinglist;
     }
 
     public String toString(){
-        return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth() + " | Tilstede: " + getPresent();
+        return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth() + " | Tilstede: " + getPresent() + "på venteliste: " + getOnWaitinglist() ;
+    }
+    public String protocolString(){
+        return "Navn: " + getFirstname() + " " + getLastname() + "Tilstede: " + getPresent();
     }
 }
