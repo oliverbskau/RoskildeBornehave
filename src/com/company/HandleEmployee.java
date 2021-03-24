@@ -55,7 +55,7 @@ public class HandleEmployee {
         employees.remove(employee);
 
         String firstname = employees.get(employee).getFirstname();
-        String lastname = employees.get(employee).getLastname()
+        String lastname = employees.get(employee).getLastname();
 
         String query = "DELETE FROM employees WHERE firstname LIKE ? AND lastname LIKE ?";
 
