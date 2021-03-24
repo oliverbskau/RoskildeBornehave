@@ -14,8 +14,6 @@ public class Employee {
         setPhonenumber(phonenumber);
     }
 
-
-
     public String getFirstname(){
         return firstname;
     }

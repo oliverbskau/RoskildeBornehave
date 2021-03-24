@@ -8,9 +8,11 @@ import java.util.Scanner;
 
 public class HandleKids {
 
-    private     Scanner in = new Scanner(System.in);
+    private Scanner in = new Scanner(System.in);
     private ArrayList<Kid> kids = new ArrayList<>();
     private ArrayList<Kid> waitingList = new ArrayList<>();
+
+
 
     public void addKid(HandleGuardian handleGuardian) {
         in.nextLine();
@@ -51,7 +53,7 @@ public class HandleKids {
             System.out.println("Fejl, barnet blev ikke gemt i database");
         }
 */
-        System.out.println("Hvem er barnets forælder? ");
+        System.out.println("Hvem er barnets værge? ");
         handleGuardian.guardianList();
         int theGuradian = in.nextInt()-1;
 
