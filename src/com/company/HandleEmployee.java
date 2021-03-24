@@ -25,10 +25,10 @@ public class HandleEmployee {
         System.out.println("Telefon: ");
         String phonenumber = in.nextLine();
 
-        String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
+        String query = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
 
         try {
-            PreparedStatement insertValuesEmployee = jdbcWriter.getConnection().prepareStatement(insertInto);
+            PreparedStatement insertValuesEmployee = JDBCWriter.getConnection().prepareStatement(query);
             insertValuesEmployee.setString(1,firstname);
             insertValuesEmployee.setString(2,lastname);
             insertValuesEmployee.setString(3,email);
