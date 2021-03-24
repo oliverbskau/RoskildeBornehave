@@ -9,6 +9,7 @@ public class Administration {
     HandleEmployee handleEmployee = new HandleEmployee();
     HandleGuardian handleGuardian = new HandleGuardian();
     HandleKids handleKids = new HandleKids();
+    Schedule schedule = new Schedule();
     /**
      * Administrates methods tied to handleemployees, see, add and delete employees
      */
@@ -35,7 +36,6 @@ public class Administration {
         }
     }
     public void administrateKids(){
-        HandleKids handleKids = new HandleKids();
         boolean run = true;
         while(run) {
             System.out.println("\n1. Se liste over børn\n2. Se liste over børn på venteliste\n3. før barn over fra venteliste" +
@@ -64,7 +64,6 @@ public class Administration {
         }
     }
     public void administrateSchedule() {
-        Schedule schedule = new Schedule();
         boolean run = true;
         while(run) {
             System.out.println("\n1. Se liste over vagter\n2. Tilføj vagt\n3. Slet vagt\n\n0. Tilbage");
@@ -125,6 +124,12 @@ public class Administration {
                     break;
             }
         }
+    }
+    public void preload(){
+        handleGuardian.loadGuardiansFromDB();
+        handleEmployee.loadEmoloyeesFromDB();
+        handleKids.loadKidsFromDB();
+        schedule.loadScheduleFromDB();
     }
 }
 

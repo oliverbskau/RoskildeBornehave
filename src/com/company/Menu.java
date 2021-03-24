@@ -9,6 +9,7 @@ public class Menu {
 
     public void menu(){
 
+        preload();
         System.out.println("\nRoskilde Frie Børnehave\nVælg menufunktion: \n\n");
 
         boolean run = true;
@@ -45,5 +46,8 @@ public class Menu {
                     System.out.println("Fejl, vælg et tal der svarer til menuens muligheder.");
             }
         }
+    }
+    public void preload(){
+        administration.preload();
     }
 }
