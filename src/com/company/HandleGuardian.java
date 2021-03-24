@@ -9,9 +9,8 @@ import java.util.Scanner;
 
 public class HandleGuardian {
 
-    private JDBCWriter jdbcWriter = new JDBCWriter();
-    ArrayList<Guardian> guardians = new ArrayList<>();
-    Scanner in = new Scanner(System.in);
+    private ArrayList<Guardian> guardians = new ArrayList<>();
+    private Scanner in = new Scanner(System.in);
 
     public void guardianList() {
 /*
@@ -108,6 +107,16 @@ public class HandleGuardian {
 
                 }
                 break;
+        }
+    }
+
+    public void loadGuardiansFromDB() {
+        String sql = "SELECT * FROM guardians";
+
+        try {
+            Statement statement = JDBCWriter.getConnection().createStatement();
+        } catch (SQLException e) {
+            System.out.println("Fejl i at hente guardians fra db");
         }
     }
 

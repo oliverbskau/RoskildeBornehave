@@ -51,6 +51,15 @@ public class HandleEmployee {
 
     public void deleteEmployee(){
         Scanner in = new Scanner(System.in);
+
+        printEmployees();
+        System.out.println("Hvilken medarbejder vil du gerne slette?");
+        int employee = in.nextInt();
+
+        employees.remove(employee);
+
+
+        /*
         jdbcWriter.retrieveDataFromDB("employee");
 
         System.out.println("\nHvilken medarbejder vil du gerne fjerne?");
@@ -69,6 +78,8 @@ public class HandleEmployee {
         } catch(SQLException e) {
             System.out.println("Fejl ved sletning af ansat");
         }
+         */
+
     }
 
     public void printEmployees() {

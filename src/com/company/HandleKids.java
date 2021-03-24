@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class HandleKids {
 
-    private JDBCWriter jdbcWriter= new JDBCWriter();
     private     Scanner in = new Scanner(System.in);
     private ArrayList<Kid> kids = new ArrayList<>();
     private ArrayList<Kid> waitingList = new ArrayList<>();
@@ -24,20 +23,8 @@ public class HandleKids {
         in.nextLine();
 
 
-        System.out.println("Tilstede: (true/false)");
-        String presentYN = in.nextLine();
         System.out.println("Er barnet på venteliste? (true/false)");
         String onWaitinglistYN = in.nextLine();
-
-        boolean present = false;
-
-        if (presentYN.equalsIgnoreCase("false")) {
-            present = false;
-        } else  if (presentYN.equalsIgnoreCase("true")){
-            present = true;
-        } else {
-            System.out.println("Skriv venligst enten true eller false: present");
-        }
 
         boolean onWaitinglist = false;
 
@@ -68,7 +55,7 @@ public class HandleKids {
         handleGuardian.guardianList();
         int theGuradian = in.nextInt()-1;
 
-        Kid newKid = new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), present, onWaitinglist);
+        Kid newKid = new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), false, onWaitinglist);
         if(onWaitinglist) {
             waitingList.add(newKid);
         } else {
