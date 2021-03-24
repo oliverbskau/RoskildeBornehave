@@ -12,6 +12,10 @@ public class HandleKids {
     private ArrayList<Kid> kids = new ArrayList<>();
     private ArrayList<Kid> waitingList = new ArrayList<>();
 
+    /**
+     * Metoden tilføjer et barn til børnelisten og tilføjer samtidigt barnet til databasen
+     * @param handleGuardian påkrævet da vi har brug for en forældre når vi oprettet et barn
+     */
     public void addKid(HandleGuardian handleGuardian) {
         in.nextLine();
         System.out.println("Fornavn: ");
@@ -34,41 +38,46 @@ public class HandleKids {
             System.out.println("Skriv venligst enten true eller false: onWaitinglist");
         }
 
-        System.out.println("Hvem er barnets forældre? ");
+        System.out.println("Hvem er barnets værge? ");
         handleGuardian.guardianList();
-        int theGuradian = in.nextInt()-1;
+        int theGuardian = in.nextInt()-1;
+        Guardian guardian = handleGuardian.getGuardians().get(theGuardian);
 
-        Kid newKid = new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), false, onWaitinglist);
+        Kid newKid = new Kid(firstname, lastname, dateOfBirth, guardian, false, onWaitinglist);
         if(onWaitinglist) {
             waitingList.add(newKid);
         } else {
             kids.add(newKid);
         }
-/*
-        String insertInto = "INSERT INTO kids(firstname, lastname, dateofbirth) values(?,?,?,?,?);";
 
-        try {
-            PreparedStatement insertValuesKid = jdbcWriter.getConnection().prepareStatement(insertInto);
-            insertValuesKid.setString(1,firstname);
-            insertValuesKid.setString(2,lastname);
-            insertValuesKid.setString(3,dateOfBirth);
-            insertValuesKid.executeQuery();
+        String insertInto = "INSERT INTO kids(firstname, lastname, dateofbirth, guardianid, onWaitinglist) values(?,?,?,?,?);";
+
+        try (
+                Connection conn = JDBCWriter.getConnection();
+                PreparedStatement ps = conn.prepareStatement(insertInto);
+                Statement statement = conn.createStatement();
+                ){
+            //Resulsettet returnere en forældre der matcher med det brugeren taster når vi spørger om hvilke forældre barnet har
+            ResultSet rs = statement.executeQuery("SELECT * FROM guardians WHERE firstname="
+                    + guardian.getFirstname() + " and lastname=" + guardian.getLastname() + ";");
+
+            ps.setString(1,firstname);
+            ps.setString(2,lastname);
+            ps.setDate(3,dateOfBirth);
+            ps.setInt(4,rs.getInt("guardianid")); //Vi henter guardianid på den guardian som vi har valgt i resultsettet
+
+            if(onWaitinglist) { //Hvis barnet er på venteliste så skriver vi 1 og ellers 0
+                ps.setInt(5,1);
+            } else {
+                ps.setInt(5,0);
+            }
+
+            ps.executeQuery();
 
             System.out.println("\n| Barn tilføjet til database |");
 
         }catch(SQLException sqlError){
             System.out.println("Fejl, barnet blev ikke gemt i database");
-        }
-*/
-        System.out.println("Hvem er barnets værge? ");
-        handleGuardian.guardianList();
-        int theGuradian = in.nextInt()-1;
-
-        Kid newKid = new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), false, onWaitinglist);
-        if(onWaitinglist) {
-            waitingList.add(newKid);
-        } else {
-            kids.add(newKid);
         }
     }
 
