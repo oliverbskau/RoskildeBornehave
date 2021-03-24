@@ -1,18 +1,20 @@
-package com.company;
+package com.company.dataObjects;
 
-public class Employee {
+public class Guardian {
 
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String phonenumber;
+private String firstname;
+private String lastname;
+private String email;
+private String phonenumber;
 
-    public Employee(String firstname, String lastname, String email, String phonenumber){
+
+    public Guardian(String firstname, String lastname, String email, String phonenumber){
         setFirstname(firstname);
         setLastname(lastname);
         setEmail(email);
         setPhonenumber(phonenumber);
     }
+
 
     public String getFirstname(){
         return firstname;

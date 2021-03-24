@@ -1,6 +1,6 @@
-package com.company;
+package com.company.dataObjects;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Duty {
 

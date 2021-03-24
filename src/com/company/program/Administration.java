@@ -1,4 +1,10 @@
-package com.company;
+package com.company.program;
+
+import com.company.DB.JDBCWriter;
+import com.company.dataHandlers.HandleEmployee;
+import com.company.dataHandlers.HandleGuardian;
+import com.company.dataHandlers.HandleKids;
+import com.company.dataHandlers.HandleSchedule;
 
 import java.util.Scanner;
 
@@ -9,7 +15,7 @@ public class Administration {
     HandleEmployee handleEmployee = new HandleEmployee();
     HandleGuardian handleGuardian = new HandleGuardian();
     HandleKids handleKids = new HandleKids();
-    Schedule schedule = new Schedule();
+    HandleSchedule handleSchedule = new HandleSchedule();
     /**
      * Administrates methods tied to handleemployees, see, add and delete employees
      */
@@ -73,13 +79,13 @@ public class Administration {
                     run = false;
                     break;
                 case 1:
-                    schedule.seeSchedule();
+                    handleSchedule.seeSchedule();
                     break;
                 case 2:
-                    schedule.addToSchedule(handleEmployee);
+                    handleSchedule.addToSchedule(handleEmployee);
                     break;
                 case 3:
-                    schedule.removeFromSchedule();
+                    handleSchedule.removeFromSchedule();
                     break;
             }
         }
@@ -129,7 +135,7 @@ public class Administration {
         handleGuardian.loadGuardiansFromDB();
         handleEmployee.loadEmployeesFromDB();
         handleKids.loadKidsFromDB();
-        schedule.loadScheduleFromDB();
+        handleSchedule.loadScheduleFromDB();
     }
 }
 

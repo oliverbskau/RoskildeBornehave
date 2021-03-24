@@ -1,4 +1,4 @@
-package com.company;
+package com.company.DB;
 
 import java.sql.*;
 
@@ -26,29 +26,5 @@ public class JDBCWriter {
 
         return connection;
     }
-
-    /**
-     * @param tableName the table we retrieve data from
-     * @return ResultSet with all data from the table
-     */
-
-    /*
-    public ResultSet retrieveDataFromDB(String tableName) {
-        ResultSet resultSet = null;
-        String query = "SELECT * FROM " + tableName + " ORDER BY lastname DESC;";
-
-        try{
-            Statement statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
-
-        } catch (SQLException e) {
-            System.err.println("Error message: " + e.getMessage());
-            System.err.println("Error code: " + e.getErrorCode());
-            System.err.println("SQL state: " + e.getSQLState());
-        }
-
-        return resultSet;
-    }
-     */
 
 }

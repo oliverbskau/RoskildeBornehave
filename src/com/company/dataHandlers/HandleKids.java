@@ -1,4 +1,8 @@
-package com.company;
+package com.company.dataHandlers;
+
+import com.company.DB.JDBCWriter;
+import com.company.dataObjects.Guardian;
+import com.company.dataObjects.Kid;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -82,22 +86,48 @@ public class HandleKids {
         }
     }
 
+    /**
+     * Metode der fjerner et barn enten fra ventelisten eller børnelisten og fjerner barnet fra databasen også
+     */
     public void removeKid(){
+        String sql = "DELETE FROM kids WHERE firstname=? and lastname=?";
+
         System.out.println("Skal barnet fjernes fra børnehavelisten eller ventelisten?");
         System.out.println("1. Børnehavelisten");
         System.out.println("2. Ventelisten");
         int answer = in.nextInt();
+        try (
+                Connection conn = JDBCWriter.getConnection();
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                ){
 
-        if(answer == 1) {
-            seeAllKids();
-            System.out.println("Hvilke barn vil du gerne fjerne? ");
-            int removeKid = in.nextInt()-1;
-            kids.remove(removeKid);
-        } else if(answer == 2) {
-            seeAllKidsOnWaitingList();
-            System.out.println("Hvilke barn vil du gerne fjerne?");
-            int removeKid = in.nextInt()-1;
-            waitingList.remove(removeKid);
+            if (answer == 1) {
+
+                seeAllKids();
+                System.out.println("Hvilke barn vil du gerne fjerne? ");
+                int removeKid = in.nextInt() - 1;
+                Kid kid = kids.get(removeKid);
+                kids.remove(kid);
+
+                preparedStatement.setString(1,kid.getFirstname());
+                preparedStatement.setString(2,kid.getLastname());
+
+            } else if (answer == 2) {
+
+                seeAllKidsOnWaitingList();
+                System.out.println("Hvilke barn vil du gerne fjerne?");
+                int removeKid = in.nextInt() - 1;
+                Kid kid = waitingList.get(removeKid);
+                waitingList.remove(kid);
+
+                preparedStatement.setString(1,kid.getFirstname());
+                preparedStatement.setString(2,kid.getLastname());
+            }
+        } catch (SQLException e) {
+            System.err.println("Fejl i fjernelse af barn fra DB");
+            System.err.println(e.getMessage());
+            System.err.println(e.getErrorCode());
+            System.err.println(e.getSQLState());
         }
     }
 
@@ -107,6 +137,7 @@ public class HandleKids {
         int transferKid = in.nextInt()-1;
 
         Kid kidToTransfer = waitingList.get(transferKid);
+        kidToTransfer.setOnWaitinglist(false);
         waitingList.remove(transferKid);
 
         kids.add(kidToTransfer);
@@ -122,7 +153,6 @@ public class HandleKids {
 
     public void seeAllKidsOnWaitingList() {
         int count = 1;
-        System.out.println("Børn på venteliste: ");
         for (int i = 0; i < waitingList.size(); i++) {
             System.out.println(count + ". " + waitingList.get(i).toString());
             count++;
@@ -150,7 +180,56 @@ public class HandleKids {
             }else if(present == 0){
                 kids.get(i).setPresent(false);
             }
+        }
+    }
 
+    /**
+     * Metode der hælder alle børn fra databasen ind i arraylisterne til manipulering i programmet
+     */
+    public void loadKidsFromDB() {
+        String sql = "SELECT * FROM kids";
+        boolean present = false;
+        boolean onWaitingList = false;
+
+        try(
+                Connection con = JDBCWriter.getConnection();
+                Statement statement = con.createStatement();
+        ) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            ResultSet guardian;
+
+            while(rs.next()) {
+                //Vi henter det guardianrow som har samme guardianid som barnet vi prøver at hælde ind
+                guardian = statement.executeQuery("SELECT * FROM guardians WHERE guardianid=" + rs.getInt("guardianid"));
+
+                //Vi er nød til at konvertere presentid og onWaitinglist til true og false fra databasen(java vs sql typer)
+                if(rs.getInt("presentid") == 1) {
+                    present = true;
+                }
+                if(rs.getInt("onWaitinglist") == 1) {
+                    onWaitingList = true;
+                }
+
+                Kid kid = new Kid(rs.getString("firstname"),
+                        rs.getString("lastname"),
+                        rs.getDate("dateofbirth"),
+                        new Guardian(guardian.getString("firstname"),
+                                guardian.getString("lastname"),
+                                guardian.getString("email"),
+                                guardian.getString("phonenumber")),
+                        present,
+                        onWaitingList);
+
+                if(kid.getOnWaitinglist()) {
+                    waitingList.add(kid);
+                } else {
+                    kids.add(kid);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Fejl i at hente guardians fra db");
         }
     }
     public ArrayList<Kid> getKids(){

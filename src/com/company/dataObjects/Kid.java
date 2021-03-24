@@ -1,7 +1,6 @@
-package com.company;
+package com.company.dataObjects;
 
 import java.util.Date;
-import java.util.ArrayList;
 
 public class Kid {
 
