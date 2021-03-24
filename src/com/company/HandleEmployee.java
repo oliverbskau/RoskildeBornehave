@@ -1,8 +1,6 @@
 package com.company;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class HandleEmployee {
@@ -25,10 +23,10 @@ public class HandleEmployee {
         System.out.println("Telefon: ");
         String phonenumber = in.nextLine();
 
-        String insertInto = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
+        String query = "INSERT INTO employee(firstname, lastname, email, phonenumber) values(?,?,?,?);";
 
         try {
-            PreparedStatement insertValuesEmployee = jdbcWriter.getConnection().prepareStatement(insertInto);
+            PreparedStatement insertValuesEmployee = JDBCWriter.getConnection().prepareStatement(query);
             insertValuesEmployee.setString(1,firstname);
             insertValuesEmployee.setString(2,lastname);
             insertValuesEmployee.setString(3,email);
@@ -76,6 +74,29 @@ public class HandleEmployee {
         }
 
     }
+
+    public void loadEmployeesFromDB() {
+        String sql = "SELECT * FROM employees";
+
+        try(
+                Connection con = JDBCWriter.getConnection();
+                Statement statement = con.createStatement();
+        ) {
+
+            ResultSet employeeRs = statement.executeQuery(sql);
+
+            while(employeeRs.next()) {
+                employees.add(new Employee(employeeRs.getString("firstname"),
+                        employeeRs.getString("lastname"),
+                        employeeRs.getString("email"),
+                        employeeRs.getString("phonenumber")));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Fejl i at hente employees fra db");
+        }
+    }
+
     public ArrayList<Employee> getEmployees(){
         return employees;
     }
