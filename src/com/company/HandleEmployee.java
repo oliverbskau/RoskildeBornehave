@@ -1,8 +1,6 @@
 package com.company;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class HandleEmployee {
@@ -76,6 +74,29 @@ public class HandleEmployee {
         }
 
     }
+
+    public void loadEmployeesFromDB() {
+        String sql = "SELECT * FROM employees";
+
+        try(
+                Connection con = JDBCWriter.getConnection();
+                Statement statement = con.createStatement();
+        ) {
+
+            ResultSet employeeRs = statement.executeQuery(sql);
+
+            while(employeeRs.next()) {
+                employees.add(new Employee(employeeRs.getString("firstname"),
+                        employeeRs.getString("lastname"),
+                        employeeRs.getString("email"),
+                        employeeRs.getString("phonenumber")));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Fejl i at hente employees fra db");
+        }
+    }
+
     public ArrayList<Employee> getEmployees(){
         return employees;
     }
