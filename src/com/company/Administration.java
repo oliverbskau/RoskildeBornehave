@@ -127,7 +127,7 @@ public class Administration {
     }
     public void preload(){
         handleGuardian.loadGuardiansFromDB();
-        handleEmployee.loadEmoloyeesFromDB();
+        handleEmployee.loadEmployeesFromDB();
         handleKids.loadKidsFromDB();
         schedule.loadScheduleFromDB();
     }
