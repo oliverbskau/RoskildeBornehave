@@ -11,10 +11,6 @@ public class HandleEmployee {
     private Scanner in = new Scanner(System.in);
     private ArrayList<Employee> employees = new ArrayList<>();
 
-    public HandleEmployee() {
-        jdbcWriter.setConnection();
-    }
-
     public void viewEmployeeList(){
         printEmployees();
     }
@@ -58,46 +54,22 @@ public class HandleEmployee {
 
         employees.remove(employee);
 
-
-        /*
-        jdbcWriter.retrieveDataFromDB("employee");
-
-        System.out.println("\nHvilken medarbejder vil du gerne fjerne?");
-        System.out.println("Skriv fornavn:");
-        String firstname = in.nextLine();
-        System.out.println("Skriv efternavn:");
-        String lastname = in.nextLine();
+        String firstname = employees.get(employee).getFirstname();
+        String lastname = employees.get(employee).getLastname()
 
         String query = "DELETE FROM employees WHERE firstname LIKE ? AND lastname LIKE ?";
 
         try{
-            PreparedStatement preparedStatement = jdbcWriter.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = JDBCWriter.getConnection().prepareStatement(query);
             preparedStatement.setString(1, firstname);
             preparedStatement.setString(2, lastname);
             preparedStatement.executeQuery(query);
         } catch(SQLException e) {
-            System.out.println("Fejl ved sletning af ansat");
+            System.out.println("Fejl ved sletning af ansat i databasen");
         }
-         */
-
     }
 
     public void printEmployees() {
-
-        ResultSet resultset = jdbcWriter.retrieveDataFromDB("employee");
-        int counter = 1;
-        try {
-            while (resultset.next()) {
-                System.out.println(counter + ". Fornavn: " + resultset.getString("firstname") + ", " +
-                        " | Efternavn " + resultset.getString("lastname") +
-                        " | Email: " + resultset.getString("email") +
-                        " | Telefonnummer: " + resultset.getString("phonenumber") +
-                        " | OpgaveID: " + resultset.getInt("dutyid"));
-                counter ++;
-            }
-        } catch (Exception e) {
-            System.out.println("Fejl ved forsøg på at printe dataset.");
-        }
         int count = 1;
         for (int i = 0; i < employees.size(); i++ ){
             System.out.println(count + ". " + employees.get(i).toString());
