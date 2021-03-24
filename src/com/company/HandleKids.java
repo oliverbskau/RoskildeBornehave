@@ -50,6 +50,7 @@ public class HandleKids {
             kids.add(newKid);
         }
 
+
         String insertInto = "INSERT INTO kids(firstname, lastname, dateofbirth, guardianid, onWaitinglist) values(?,?,?,?,?);";
 
         try (
