@@ -1,9 +1,6 @@
 package com.company;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,37 +10,13 @@ public class HandleGuardian {
     private Scanner in = new Scanner(System.in);
 
     public void guardianList() {
-/*
-       jdbcWriter.setConnection();
 
-        String listGuardians = "select * from guardians;";
-
-        try{
-            PreparedStatement guardianStatement = jdbcWriter.getConnection().prepareStatement(listGuardians);
-            ResultSet guardianRs = guardianStatement.executeQuery();
-            System.out.println("\nForældre liste: ");
-            int count = 1;
-            while(guardianRs.next()){
-                System.out.println(count + ". Forælder: " + guardianRs.getString("firstname")
-                + " " + guardianRs.getString("lastname") + " | Telefon: " + guardianRs.getString("phonenumber"));
-                count++;
-                System.out.println("");
-
-            }
-
-        }catch (SQLException SQLerror){
-            System.out.println("Kunne ikke finde listen i database.");
-        }
-
- */
         int count = 1;
         for (int i = 0; i < guardians.size(); i++){
             System.out.println(count + ". " + guardians.get(i).toString());
             count++;
         }
-
     }
-
     public void addGuardian(){
         System.out.println("Fornavn: ");
         String firstname = in.nextLine();
@@ -55,6 +28,26 @@ public class HandleGuardian {
         String phonenumber = in.nextLine();
 
         guardians.add(new Guardian(firstname, lastname, email, phonenumber));
+
+        String sql = "INSERT INTO guardians(firstname,lastname,email,phonenumber) VALUES(?,?,?,?)";
+
+        try (
+                Connection conn = JDBCWriter.getConnection();
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                ){
+            preparedStatement.setString(1,firstname);
+            preparedStatement.setString(2,lastname);
+            preparedStatement.setString(3,email);
+            preparedStatement.setString(4,phonenumber);
+
+            preparedStatement.executeQuery();
+
+        } catch (SQLException e) {
+            System.err.println("Fejl i tilføjelse af guardian til DB" + e.getMessage());
+            System.err.println(e.getSQLState());
+            System.err.println(e.getErrorCode());
+        }
+
     }
     public void updateGuardian(HandleKids handleKids){
         System.out.println("Hvilken forældrer skal administreres: ");
@@ -113,8 +106,20 @@ public class HandleGuardian {
     public void loadGuardiansFromDB() {
         String sql = "SELECT * FROM guardians";
 
-        try {
-            Statement statement = JDBCWriter.getConnection().createStatement();
+        try(
+                Connection con = JDBCWriter.getConnection();
+                Statement statement = con.createStatement();
+                ) {
+
+            ResultSet guardianRs = statement.executeQuery(sql);
+
+            while(guardianRs.next()) {
+                guardians.add(new Guardian(guardianRs.getString("firstname"),
+                        guardianRs.getString("lastname"),
+                        guardianRs.getString("email"),
+                        guardianRs.getString("phonenumber")));
+            }
+
         } catch (SQLException e) {
             System.out.println("Fejl i at hente guardians fra db");
         }
