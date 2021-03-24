@@ -8,11 +8,9 @@ import java.util.Scanner;
 
 public class HandleKids {
 
-    private Scanner in = new Scanner(System.in);
+    private     Scanner in = new Scanner(System.in);
     private ArrayList<Kid> kids = new ArrayList<>();
     private ArrayList<Kid> waitingList = new ArrayList<>();
-
-
 
     public void addKid(HandleGuardian handleGuardian) {
         in.nextLine();
@@ -30,12 +28,21 @@ public class HandleKids {
 
         boolean onWaitinglist = false;
 
-        if (onWaitinglistYN.equalsIgnoreCase("false")) {
-            onWaitinglist = false;
-        } else  if (onWaitinglistYN.equalsIgnoreCase("true")){
+        if (onWaitinglistYN.equalsIgnoreCase("true")){
             onWaitinglist = true;
         } else {
             System.out.println("Skriv venligst enten true eller false: onWaitinglist");
+        }
+
+        System.out.println("Hvem er barnets forældre? ");
+        handleGuardian.guardianList();
+        int theGuradian = in.nextInt()-1;
+
+        Kid newKid = new Kid(firstname, lastname, dateOfBirth, handleGuardian.getGuardians().get(theGuradian), false, onWaitinglist);
+        if(onWaitinglist) {
+            waitingList.add(newKid);
+        } else {
+            kids.add(newKid);
         }
 /*
         String insertInto = "INSERT INTO kids(firstname, lastname, dateofbirth) values(?,?,?,?,?);";

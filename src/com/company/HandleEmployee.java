@@ -40,7 +40,6 @@ public class HandleEmployee {
             System.out.println("Fejl, medarbejderen blev ikke gemt i database");
         }
 
-
         employees.add(new Employee(firstname, lastname, email, phonenumber));
 
     }
