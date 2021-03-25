@@ -93,7 +93,7 @@ public class Administration {
     public void administrateProtocol(){
         boolean run = true;
         while(run) {
-            System.out.println("\n1. Se protokol\n2. Rediger protokol\n0. Tilbage");
+            System.out.println("\n1. Se protokol\n2. Rediger protokol\n\n0. Tilbage");
             int choice = in.nextInt();
             switch(choice){
                 case 0:
