@@ -1,15 +1,16 @@
 package com.company.dataObjects;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Duty {
 
     private Date date;
-    private String startTime;
-    private String endTime;
+    private Time startTime;
+    private Time endTime;
     private Employee assignEmployee;
 
-    public Duty(Date date, String startTime, String endTime, Employee assignEmployee){
+    public Duty(Date date, Time startTime, Time endTime, Employee assignEmployee){
         setDate(date);
         setStartTime(startTime);
         setEndTime(endTime);
@@ -23,17 +24,17 @@ public class Duty {
         this.date = date;
     }
 
-    public String getStartTime(){
+    public Time getStartTime(){
         return startTime;
     }
-    public void setStartTime(String startTime){
+    public void setStartTime(Time startTime){
         this.startTime = startTime;
     }
 
-    public String getEndTime(){
+    public Time getEndTime(){
         return endTime;
     }
-    public void setEndTime(String endTime){
+    public void setEndTime(Time endTime){
         this.endTime = endTime;
     }
 

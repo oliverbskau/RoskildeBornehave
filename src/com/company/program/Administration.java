@@ -10,12 +10,11 @@ import java.util.Scanner;
 
 public class Administration {
 
-    private JDBCWriter jdbcWriter;
     private Scanner in = new Scanner(System.in);
-    HandleEmployee handleEmployee = new HandleEmployee();
-    HandleGuardian handleGuardian = new HandleGuardian();
-    HandleKids handleKids = new HandleKids();
-    HandleSchedule handleSchedule = new HandleSchedule();
+    private HandleEmployee handleEmployee = new HandleEmployee();
+    private HandleGuardian handleGuardian = new HandleGuardian();
+    private HandleKids handleKids = new HandleKids();
+    private HandleSchedule handleSchedule = new HandleSchedule();
     /**
      * Administrates methods tied to handleemployees, see, add and delete employees
      */

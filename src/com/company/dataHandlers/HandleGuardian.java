@@ -43,10 +43,11 @@ public class HandleGuardian {
             preparedStatement.setString(3,email);
             preparedStatement.setString(4,phonenumber);
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Fejl i tilføjelse af guardian til DB" + e.getMessage());
+            System.err.println("Fejl i tilføjelse af guardian til DB");
+            System.err.println(e.getMessage());
             System.err.println(e.getSQLState());
             System.err.println(e.getErrorCode());
         }
@@ -124,7 +125,10 @@ public class HandleGuardian {
             }
 
         } catch (SQLException e) {
-            System.out.println("Fejl i at hente guardians fra db");
+            System.err.println("Fejl i at hente guardians fra db");
+            System.err.println(e.getMessage());
+            System.err.println(e.getSQLState());
+            System.err.println(e.getErrorCode());
         }
     }
 

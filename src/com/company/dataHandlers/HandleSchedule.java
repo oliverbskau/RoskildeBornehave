@@ -2,9 +2,8 @@ package com.company.dataHandlers;
 
 
 import com.company.DB.JDBCWriter;
-import com.company.dataHandlers.HandleEmployee;
 import com.company.dataObjects.Duty;
-import com.company.dataObjects.Guardian;
+import com.company.dataObjects.Employee;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -31,29 +30,48 @@ public class HandleSchedule {
         Date date = Date.valueOf(in.next());
         in.nextLine();
         System.out.println("Hvad tid starter vagten? (HH:MM:SS)");
-        String startTime = in.nextLine();
+        Time startTime = Time.valueOf(in.nextLine());
         System.out.println("Hvad tid slutter vagten? (HH:MM:SS)");
-        String endTime = in.nextLine();
+        Time endTime = Time.valueOf(in.nextLine());
         System.out.println("Hvilken medarbejder skal tilføjes tilføjes til vagten?");
         handleEmployee.printEmployees();
         int assignEmployee = in.nextInt()-1;
 
+        Employee employee = handleEmployee.getEmployees().get(assignEmployee);
 
-        /*
-        String query = "INSERT INTO schedules(" + shiftDate + ", " + start + ", " + slut + ");";
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeQuery(query);
+        duties.add(new Duty(date , startTime, endTime, employee));
 
-        } catch (Exception e) {
-            System.out.println("Fejl ved tilføjelse af dato for vagt");
+        String query = "INSERT INTO duties(Date,start,end,employeeid) VALUES(?,?,?,?);";
+        try (
+                Connection conn = JDBCWriter.getConnection();
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+                PreparedStatement subPreparedStmt = conn.prepareStatement("SELECT * FROM employee WHERE firstname like ? AND lastname like ?;")
+                ){
+
+            preparedStatement.setDate(1,date);
+            preparedStatement.setTime(2,startTime);
+            preparedStatement.setTime(3,endTime);
+
+            subPreparedStmt.setString(1,employee.getFirstname());
+            subPreparedStmt.setString(2,employee.getLastname());
+
+            ResultSet rs = subPreparedStmt.executeQuery();
+            int employeeId = 0;
+
+            if(rs.next()) {
+                employeeId = rs.getInt("employeeid");
+            }
+
+            preparedStatement.setInt(4,employeeId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Fejl i tilføjelse af vagt til DB");
+            System.err.println(e.getMessage());
+            System.err.println(e.getSQLState());
+            System.err.println(e.getErrorCode());
         }
-
-         */
-
-        duties.add(new Duty(date , startTime, endTime, handleEmployee.getEmployees().get(assignEmployee)));
-
-
     }
 
     public void removeFromSchedule(){
@@ -66,7 +84,7 @@ public class HandleSchedule {
         Duty duty = duties.get(removeDuty);
         duties.remove(duty);
 
-        String sql = "DELETE FROM schedule WHERE Date=? and start=? and end=?";
+        String sql = "DELETE FROM duties WHERE Date=? and start=? and end=?";
 
         try(
                 Connection conn = JDBCWriter.getConnection();
@@ -74,10 +92,10 @@ public class HandleSchedule {
                 ) {
 
             preparedStatement.setDate(1,duty.getDate());
-            preparedStatement.setTime(2,Time.valueOf(duty.getStartTime()));
-            preparedStatement.setTime(3,Time.valueOf(duty.getEndTime()));
+            preparedStatement.setTime(2,duty.getStartTime());
+            preparedStatement.setTime(3,duty.getEndTime());
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             System.err.println("Fejl i fjernelse af vagt");
@@ -88,7 +106,7 @@ public class HandleSchedule {
     }
 
     public void loadScheduleFromDB() {
-        String sql = "SELECT * FROM duties";
+        String sql = "SELECT * FROM duties JOIN employee using(employeeid)";
 
         try(
                 Connection con = JDBCWriter.getConnection();
@@ -96,14 +114,17 @@ public class HandleSchedule {
         ) {
 
             ResultSet dutiesRs = statement.executeQuery(sql);
-            /*
+
             while(dutiesRs.next()) {
+
                 duties.add(new Duty(dutiesRs.getDate("Date"),
                         dutiesRs.getTime("start"),
-                        dutiesRs.getTime("end"), //Mangler employee assigned to task));
+                        dutiesRs.getTime("end"),
+                        new Employee(dutiesRs.getString("firstname"),
+                                dutiesRs.getString("lastname"),
+                                dutiesRs.getString("email"),
+                                dutiesRs.getString("phonenumber")))); //Mangler employee assigned to task));
             }
-
-             */
 
         } catch (SQLException e) {
             System.out.println("Fejl i at hente guardians fra db");

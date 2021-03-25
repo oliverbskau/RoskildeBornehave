@@ -65,9 +65,11 @@ public class Kid {
     }
 
     public String toString(){
-        return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth() + " | Tilstede: " + getPresent() + "på venteliste: " + getOnWaitinglist() ;
+        return "Navn: " + getFirstname() + " " + getLastname() + " | Født: " + getDateOfBirth() + " | Tilstede: "
+                + getPresent() + " | på venteliste: " + getOnWaitinglist() +
+                "\n | Forældre tilknyttet til barn : " + guardian.toString();
     }
     public String protocolString(){
-        return "Navn: " + getFirstname() + " " + getLastname() + "Tilstede: " + getPresent();
+        return "Navn: " + getFirstname() + " " + getLastname() + " | Tilstede: " + getPresent();
     }
 }

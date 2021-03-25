@@ -34,11 +34,12 @@ public class HandleEmployee {
             insertValuesEmployee.setString(2,lastname);
             insertValuesEmployee.setString(3,email);
             insertValuesEmployee.setString(4, phonenumber);
-            insertValuesEmployee.executeQuery();
+            insertValuesEmployee.executeUpdate();
             System.out.println("\n| Medarbejder tilføjet til database |");
 
         }catch(SQLException sqlError){
-            System.out.println("Fejl, medarbejderen blev ikke gemt i database");
+            System.err.println("Fejl, medarbejderen blev ikke gemt i database");
+            System.err.println(sqlError.getMessage());
         }
 
         employees.add(new Employee(firstname, lastname, email, phonenumber));
@@ -49,23 +50,24 @@ public class HandleEmployee {
         Scanner in = new Scanner(System.in);
 
         printEmployees();
-        System.out.println("Hvilken medarbejder vil du gerne slette?");
-        int employee = in.nextInt();
-
-        employees.remove(employee);
+        System.out.println("\nHvilken medarbejder vil du gerne slette?");
+        int employee = in.nextInt()-1;
 
         String firstname = employees.get(employee).getFirstname();
         String lastname = employees.get(employee).getLastname();
 
-        String query = "DELETE FROM employees WHERE firstname LIKE ? AND lastname LIKE ?";
+        employees.remove(employee);
+
+        String query = "DELETE FROM employee WHERE firstname LIKE ? AND lastname LIKE ?";
 
         try{
             PreparedStatement preparedStatement = JDBCWriter.getConnection().prepareStatement(query);
             preparedStatement.setString(1, firstname);
             preparedStatement.setString(2, lastname);
-            preparedStatement.executeQuery(query);
+            preparedStatement.executeUpdate();
         } catch(SQLException e) {
             System.out.println("Fejl ved sletning af ansat i databasen");
+            System.err.println(e.getMessage());
         }
     }
 
@@ -75,11 +77,10 @@ public class HandleEmployee {
             System.out.println(count + ". " + employees.get(i).toString());
             count++;
         }
-
     }
 
     public void loadEmployeesFromDB() {
-        String sql = "SELECT * FROM employees";
+        String sql = "SELECT * FROM employee";
 
         try(
                 Connection con = JDBCWriter.getConnection();
@@ -96,7 +97,10 @@ public class HandleEmployee {
             }
 
         } catch (SQLException e) {
-            System.out.println("Fejl i at hente employees fra db");
+            System.err.println("Fejl i at hente employees fra db");
+            System.err.println(e.getMessage());
+            System.err.println(e.getSQLState());
+            System.err.println(e.getErrorCode());
         }
     }
 
