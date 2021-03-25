@@ -13,7 +13,6 @@ public class HandleSchedule {
     private Scanner in = new Scanner(System.in);
     private ArrayList<Duty> duties = new ArrayList<>();
 
-
     public void seeSchedule(){
 
         System.out.println();

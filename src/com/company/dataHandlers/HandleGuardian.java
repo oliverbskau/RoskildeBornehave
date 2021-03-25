@@ -20,6 +20,7 @@ public class HandleGuardian {
             count++;
         }
     }
+
     public void addGuardian(){
         System.out.println("Fornavn: ");
         String firstname = in.nextLine();
