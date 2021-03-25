@@ -113,7 +113,7 @@ public class Administration {
 
         boolean run = true;
         while(run) {
-            System.out.println("\n1. Se forældre\n2. tilføj forældre\n3. Opdater forældre\n0. Tilbage");
+            System.out.println("\n1. Se forældre\n2. tilføj forældre\n3. Opdater forældre\n\n0. Tilbage");
             int choice = in.nextInt();
             switch(choice){
                 case 0:
